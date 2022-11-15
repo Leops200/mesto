@@ -1,4 +1,10 @@
 .button{
-  border: 1px solid springgreen;
+  /*border: 1px solid springgreen;*/
   background-color: black;
+  opacity: 1.0;
+  transition: 0.25s;
+}
+
+.button:hover{
+  opacity: 0.5;
 }

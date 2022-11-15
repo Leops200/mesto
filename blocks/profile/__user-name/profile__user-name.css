@@ -1,5 +1,5 @@
 .profile__user-name{
-  border: 1px solid rgb(175, 250, 135);
+  /*border: 1px solid rgb(175, 250, 135);*/
   color: #fff;
   margin: 23px 0 16px 0;
   grid-area: name;

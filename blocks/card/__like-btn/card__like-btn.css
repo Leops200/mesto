@@ -5,8 +5,10 @@
   width: 22px;
   background-image: url(../../../images/like.svg);
   background-color: #fff;
+  opacity: 1.0;
+  transition: 0.25s;
 }
 
-.card__like-btn:hover{
+/*.card__like-btn:hover{
   opacity: 0.9;
-}
+}*/
