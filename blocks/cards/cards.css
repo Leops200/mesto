@@ -1,0 +1,6 @@
+.cards{
+  /*border: 1px solid wheat;*/
+  display: grid;
+  gap: 17px;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+}

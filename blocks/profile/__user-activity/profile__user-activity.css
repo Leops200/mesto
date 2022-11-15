@@ -1,0 +1,17 @@
+.profile__user-activity{
+  border: 1px solid gray;
+  color: #fff;
+  margin: 0;
+  grid-area: act;
+  font-size: 18px;
+  line-height: 21.78px;
+  font-weight: 400;
+}
+
+@media  screen and (max-width: 658px) {
+  .profile__user-activity {
+    font-size: 14px;
+    line-height: 16.94px;
+    margin: 0 0 36px 0;
+  }
+}

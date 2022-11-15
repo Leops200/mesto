@@ -1,0 +1,17 @@
+.button__add{
+  border: 2px solid #fff;
+  background-image: url(../../../images/плюсик.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 150px;
+  height: 50px;
+  margin: auto 0 auto auto;
+  
+}
+
+@media  screen and (max-width: 585px){
+  .button__add{
+    width: 100%;
+    margin: 0;
+  }
+}
