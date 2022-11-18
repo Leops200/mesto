@@ -1,4 +1,4 @@
-.button__add{
+.profile__add-btn{
   border: 2px solid #fff;
   background-image: url(../../../images/плюсик.png);
   background-repeat: no-repeat;
@@ -10,7 +10,7 @@
 }
 
 @media  screen and (max-width: 585px){
-  .button__add{
+  .add-btn{
     width: 100%;
     margin: 0;
   }
