@@ -11,5 +11,6 @@
 @media  screen and (max-width: 585px){
   .profile__user-box{
     justify-items: center;
+    margin: 0 19px;
   }
 }

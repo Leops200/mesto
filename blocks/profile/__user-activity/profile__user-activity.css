@@ -1,11 +1,15 @@
 .profile__user-activity{
   /*border: 1px solid gray;*/
+  max-width: 300px;
   color: #fff;
   margin: 0;
   grid-area: act;
   font-size: 18px;
   line-height: 21.78px;
   font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media  screen and (max-width: 658px) {
@@ -13,5 +17,6 @@
     font-size: 14px;
     line-height: 16.94px;
     margin: 0 0 36px 0;
+    max-width: 230px;
   }
 }
