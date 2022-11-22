@@ -5,7 +5,7 @@
   margin: 48px 0 0;
   color: #fff;
   font-size: 18px;
-  line-height: 21.78px;
+  line-height: 22px;
   font-weight: 400;
 }
 
@@ -13,6 +13,6 @@
   .popup__form-btn-save{
     height: 46px;
     font-size: 14px;
-    line-height: 16.94px;
+    line-height: 17px;
   }
 }
