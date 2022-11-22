@@ -14,14 +14,14 @@
 
 @media  screen and (max-width: 880px){
   .profile__user-activity{
-    margin: 0 auto 36px;
+    margin: 0 auto 30px;
   }
 }
 
 @media  screen and (max-width: 658px) {
   .profile__user-activity {
     font-size: 14px;
-    line-height: 16.94px;
+    line-height: 17px;
     max-width: 230px;
   }
 }

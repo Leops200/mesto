@@ -17,6 +17,7 @@
 
 @media  screen and (max-width: 596px){
   .profile__add-btn{
+    background-image: url(../../../images/plus_smol.png);
     width: 100%;
   }
 }
