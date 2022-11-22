@@ -9,7 +9,7 @@ const popupOpenBtnElement = document.querySelector('.profile__edit-btn');
 /* ниже функция - переключатель и её реализация как вариант работы
    с "переключателем". 
 const togglePopupVsblt = function() {
-  popupElement.classList.toggle('popup_actived');
+  popupElement.classList.toggle('popup_opened');
 }
 
 //togglePopupVsblt(); // наша функция - переключатель.
@@ -21,7 +21,7 @@ const togglePopupVsblt = function() {
 // Реализуем работу не через "переключатель", а через разные функции:
 
 const openPopup = function() {
-  popupElement.classList.add('popup_actived');
+  popupElement.classList.add('popup_opened');
 
   nameInput.value = profileName.textContent;
 
@@ -32,7 +32,7 @@ const openPopup = function() {
 }
 
 const closePopup = function() {
-  popupElement.classList.remove('popup_actived')
+  popupElement.classList.remove('popup_opened')
 }
 
 // Регистрируем обработчики событий по-клику
