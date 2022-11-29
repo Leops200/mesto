@@ -1,0 +1,14 @@
+.card__del-btn{
+  border: 1px solid red;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(../../../images/Trash.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
