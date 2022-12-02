@@ -1,22 +1,76 @@
 // Проверяем, что подключили скрипт и он работает
 //console.log('Hello, world !');
 // Делаем выборку ДОМ элементов
+
 const popupElement = document.querySelector('.popup');
 const popupCloseBtnElement = popupElement.querySelector('.popup__close-btn');
 const popupOpenBtnElement = document.querySelector('.profile__edit-btn');
-//console.log(popupOpenBtnElement);
 
-/* ниже функция - переключатель и её реализация как вариант работы
-   с "переключателем". 
-const togglePopupVsblt = function() {
-  popupElement.classList.toggle('popup_opened');
+const cardsContainer = document.querySelector('.elements');
+const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
+
+console.log(cardTemplate);
+
+//=== Add massive & render all cards ===//
+
+const initialCards = [
+
+  {
+    name: 'Улан-Удэ',
+    link: './images/Улан-Удэ.jpg',
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: './images/Гора_Эльбрус.png',
+  },
+  {
+    name: 'Домбай',
+    link: './images/Домбай.png',
+  },
+  {
+    name: 'Сулак',
+    link: './images/Сулак.jpg',
+  },
+  {
+    name: 'Байкал',
+    link: './images/Байкал.jpg',
+  },
+  {
+    name: 'Судак',
+    link: './images/Судак.jpg',
+  },
+];
+//========================================================
+//-----AddCards (Добавляем карточки)
+const generateCard = (dataCard) => {
+  const newCard = cardTemplate.cloneNode(true);
+  const imageAdd = newCard.querySelector('.card__image'); 
+  const nameAdd = newCard.querySelector('.card__title');
+  //var like toggle
+  const cardLikeBtn = newCard.querySelector('.card__like-btn');
+  const trashBox = newCard.querySelector('.card__del-btn');
+  console.log(trashBox);
+
+  imageAdd.src = dataCard.link;
+  nameAdd.textContent = dataCard.name;
+  imageAdd.alt = 'картинка ' + dataCard.name;
+
+  //cardLikeBtn.addEventListener('click', likeTglElement);
+  //trashBox.addEventListener('click', );
+  
+  return newCard;
+};
+
+initialCards.forEach((dataCard) => {
+const newCardAdd = generateCard(dataCard);
+cardsContainer.prepend(newCardAdd);
+});
+
+//Функция добавления лайка
+const likeTglElement = (evt) => {
+  evt.target.classList.toggle('card__like-btn_on');
 }
 
-//togglePopupVsblt(); // наша функция - переключатель.
-
-//popupOpenBtnElement.addEventListener('click', togglePopupVsblt)  //выполнение
-//popupCloseBtnElement.addEventListener('click', togglePopupVsblt) //переключат
-*/
 
 // Реализуем работу не через "переключатель", а через разные функции:
 

@@ -1,5 +1,6 @@
 .card__like-btn{
   border: none;
+  /*border: 1px solid #0f0;*/
   margin: 0 20px 0 0;
   height: 19px;
   width: 22px;

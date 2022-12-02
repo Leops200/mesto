@@ -1,4 +1,4 @@
-<!-- Здравствуйте Варвара! Ещё раз благодарю Вас. Итерация, наверно, не нужна (их же нельзя накопить))), тем более, если ошибок больше нет. Было приятно с вами поработать: действительно, даже без коментариев к строчкам, у меня получилось во всём разобраться и поправить (и вроде бы даже новых не наляпал). С уважением, Леонид.    -->
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,49 +32,7 @@
 
     <!-- elements -->
     <section class="elements content__section" aria-label="Фотогалерея">
-      <div class="card">
-        <img src="./images/Улан-Удэ.jpg" alt="Улан-Удэ" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Улан-Удэ</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Гора_Эльбрус.png" alt="Гора Эльбрус" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Гора Эльбрус</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <button class="button card__del-btn" type="button"></button>
-        <img src="./images/Домбай.png" alt="Домбай" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Домбай</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Сулак.jpg" alt="Сулак" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Сулак</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Байкал.jpg" alt="Байкал" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Байкал</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="./images/Судак.jpg" alt="Судак" class="card__image">
-        <div class="card__about">
-          <h2 class="card__title">Судак</h2>
-          <button class="button card__like-btn" type="button"></button>
-        </div>
-      </div>
+      
     </section>
   </main>
 
@@ -93,6 +51,16 @@
       </form>
     </div>
   </div>
+  <template id="card-template">
+    <div class="card">
+      <button class="button card__del-btn" type="button"></button>
+      <img src="#" alt="#" class="card__image">
+      <div class="card__about">
+        <h2 class="card__title"></h2>
+        <button class="button card__like-btn" type="button"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
