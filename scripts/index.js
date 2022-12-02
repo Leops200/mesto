@@ -56,21 +56,25 @@ const generateCard = (dataCard) => {
   imageAdd.alt = 'картинка ' + dataCard.name;
 
   //cardLikeBtn.addEventListener('click', likeTglElement);
-  //trashBox.addEventListener('click', );
+  //trashBox.addEventListener('click', delCard);
   
   return newCard;
 };
-
-initialCards.forEach((dataCard) => {
-const newCardAdd = generateCard(dataCard);
-cardsContainer.prepend(newCardAdd);
-});
 
 //Функция добавления лайка
 const likeTglElement = (evt) => {
   evt.target.classList.toggle('card__like-btn_on');
 }
 
+// Функция "карточка в мусор"
+const delCard = (evt) => {
+  evt.target.closest('.card').remove();
+}
+
+initialCards.forEach((dataCard) => {
+  const newCardAdd = generateCard(dataCard);
+  cardsContainer.prepend(newCardAdd);
+  });
 
 // Реализуем работу не через "переключатель", а через разные функции:
 
