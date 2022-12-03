@@ -1,18 +1,25 @@
 // Проверяем, что подключили скрипт и он работает
 //console.log('Hello, world !');
+
 // Делаем выборку ДОМ элементов:
-//  Глобальные переменные для работы с попАп:
+//  Глобальные переменные:
+//  для работы с попАп:
 const popupElement = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
 const popupCloseBtnElement = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
-const profileEditElement = document.querySelector('.popup_profile');
-//* эта переменная добавляет класс открытия попапу профиля при клике
+const profileEditElement = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
+const newCardAddElement = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
 
-//--  Переменные для профиля
+//--  Переменные для  профиля
 const profileElement = document.querySelector('.profile');//* назначаем конкретный блок - профиль 
 const profileNameElement = profileElement.querySelector('.profile__user-name');//* имя в профиле
 const profileActivityElement = profileElement.querySelector('.profile__user-activity');//* хобби в профиле
 const profileBtnOnElement = profileElement.querySelector('.profile__edit-btn');//* кнопка "включения" профиля
 const cardAddBtnElement = profileElement.querySelector('.profile__add-btn');//* кнопка добавления нового профиля
+
+//--  Переменные для работы с формой профиля:
+const formEditElement = document.querySelector('.popup__form-edit');//* окно редактирования профиля
+const nameInputElement = formEditElement.querySelector('.popup__form-input_other-name');//* окно редактирования имени
+const aboutInputElement = formEditElement.querySelector('.popup__form-input_other-about');//* окно редактирования хобби
 
 //--  Переменные для Card и Template
 const cardsContainer = document.querySelector('.elements');
@@ -82,7 +89,21 @@ const delCard = (evt) => {
 initialCards.forEach((dataCard) => {
   const newCardAdd = generateCard(dataCard);
   cardsContainer.prepend(newCardAdd);
-  });
+});
+
+//* Функция заполнения полей "инпут"
+const profileFillers = () =>{
+  nameInputElement.value = profileNameElement.textContent;
+  aboutInputElement.value = profileActivityElement.textContent;
+}
+
+//*  функция сохранения (отправки) введённых данных
+const formProfileSubmitHandler = (evt) => {
+  evt.preventDefault();//* метод присваивает выбранные значения
+  profileNameElement.textContent = nameInputElement.value;
+  profileActivityElement.textContent = aboutInputElement.value;
+  closePopup();
+}
 
 // Реализуем работу не через "переключатель", а через разные функции:
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
@@ -90,7 +111,6 @@ const openPopup = (evt) => {
   evt.classList.add('popup_opened');
   console.log(' opened')
 }
-
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElement" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
 const closePopup = () => {
@@ -100,47 +120,18 @@ const closePopup = () => {
   })
 }
 
-const profileFillers = () =>{
-  //nameInput.value = profileName.textContent;
-
-  //jobInput.value = profileJob.textContent;
-
-  console.log(/*nameInput.textContent +*/ '3');
-}
-
-
 //* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(profileEditElement)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
 profileBtnOnElement.addEventListener('click',() => {
   openPopup (profileEditElement);
   profileFillers();
 });
 
+//
+cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement));//* То-же , что и выше, на кнопку добавления новой карточки
+
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
 popupCloseBtnElement.forEach( (evt) => evt.addEventListener('click', closePopup) );
 
+formEditElement.addEventListener('submit', formProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
-//======================================================================
-// РАБОТА С ФОРМОЙ
-/*
-let formElement = popupElement.querySelector('.popup__form');
-
-let nameInput = formElement.querySelector('.popup__form-input_other-name');
-
-let jobInput = formElement.querySelector('.popup__form-input_other-about');
-
-let profileName = document.querySelector('.profile__user-name');
-
-let profileJob = document.querySelector('.profile__user-activity');
-
-function formSubmitHandler (evt) {
-  evt.preventDefault();
-
-  profileName.textContent = nameInput.value;
-
-  profileJob.textContent = jobInput.value;
-
-  closePopup();
-}
-
-formElement.addEventListener('submit', formSubmitHandler);
-//  console.log('end script');*/
+//  console.log('end script');
