@@ -1,15 +1,24 @@
 // Проверяем, что подключили скрипт и он работает
 //console.log('Hello, world !');
-// Делаем выборку ДОМ элементов
+// Делаем выборку ДОМ элементов:
+//  Глобальные переменные для работы с попАп:
+const popupElement = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
+const popupCloseBtnElement = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
+const profileEditElement = document.querySelector('.popup_profile');
+//* эта переменная добавляет класс открытия попапу профиля при клике
 
-const popupElement = document.querySelector('.popup');
-const popupCloseBtnElement = popupElement.querySelector('.popup__close-btn');
-const popupOpenBtnElement = document.querySelector('.profile__edit-btn');
+//--  Переменные для профиля
+const profileElement = document.querySelector('.profile');//* назначаем конкретный блок - профиль 
+const profileNameElement = profileElement.querySelector('.profile__user-name');//* имя в профиле
+const profileActivityElement = profileElement.querySelector('.profile__user-activity');//* хобби в профиле
+const profileBtnOnElement = profileElement.querySelector('.profile__edit-btn');//* кнопка "включения" профиля
+const cardAddBtnElement = profileElement.querySelector('.profile__add-btn');//* кнопка добавления нового профиля
 
+//--  Переменные для Card и Template
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
-console.log(cardTemplate);
+console.log(cardTemplate + ' =2');
 
 //=== Add massive & render all cards ===//
 
@@ -76,33 +85,43 @@ initialCards.forEach((dataCard) => {
   });
 
 // Реализуем работу не через "переключатель", а через разные функции:
-
-const openPopup = function() {
-  popupElement.classList.add('popup_opened');
-
-  nameInput.value = profileName.textContent;
-
-  jobInput.value = profileJob.textContent;
-
-  console.log(nameInput.textContent);
-
+//* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
+const openPopup = (evt) => {
+  evt.classList.add('popup_opened');
+  console.log(' opened')
 }
 
-const closePopup = function() {
-  popupElement.classList.remove('popup_opened')
+
+//* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElement" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
+const closePopup = () => {
+  popupElement.forEach(function(element){
+    element.classList.remove('popup_opened');
+    console.log('closePopup!')
+  })
 }
 
-// Регистрируем обработчики событий по-клику
+const profileFillers = () =>{
+  //nameInput.value = profileName.textContent;
 
-popupOpenBtnElement.addEventListener('click', openPopup);
+  //jobInput.value = profileJob.textContent;
 
-popupCloseBtnElement.addEventListener('click', closePopup);
+  console.log(/*nameInput.textContent +*/ '3');
+}
 
-// Как работают функции обратного вызова (на упрощённом примере)
+
+//* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(profileEditElement)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
+profileBtnOnElement.addEventListener('click',() => {
+  openPopup (profileEditElement);
+  profileFillers();
+});
+
+//* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
+popupCloseBtnElement.forEach( (evt) => evt.addEventListener('click', closePopup) );
+
 
 //======================================================================
 // РАБОТА С ФОРМОЙ
-
+/*
 let formElement = popupElement.querySelector('.popup__form');
 
 let nameInput = formElement.querySelector('.popup__form-input_other-name');
@@ -124,4 +143,4 @@ function formSubmitHandler (evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-//  console.log('end script');
+//  console.log('end script');*/
