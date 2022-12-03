@@ -49,14 +49,13 @@ const generateCard = (dataCard) => {
   //var like toggle
   const cardLikeBtn = newCard.querySelector('.card__like-btn');
   const trashBox = newCard.querySelector('.card__del-btn');
-  console.log(trashBox);
 
   imageAdd.src = dataCard.link;
   nameAdd.textContent = dataCard.name;
   imageAdd.alt = 'картинка ' + dataCard.name;
 
-  //cardLikeBtn.addEventListener('click', likeTglElement);
-  //trashBox.addEventListener('click', delCard);
+  cardLikeBtn.addEventListener('click', likeTglElement);
+  trashBox.addEventListener('click', delCard);
   
   return newCard;
 };
@@ -70,7 +69,7 @@ const likeTglElement = (evt) => {
 const delCard = (evt) => {
   evt.target.closest('.card').remove();
 }
-
+//Внимание! инициируем ниже функций!
 initialCards.forEach((dataCard) => {
   const newCardAdd = generateCard(dataCard);
   cardsContainer.prepend(newCardAdd);
