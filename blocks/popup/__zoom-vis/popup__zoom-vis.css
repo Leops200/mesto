@@ -1,3 +1,5 @@
 .popup__zoom-vis{
-  border: 1px solid #f5f;
+  /*border: 1px solid #f5f;*/
+  position: relative;
+  margin: 0;
 }

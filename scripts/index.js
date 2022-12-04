@@ -1,3 +1,7 @@
+/*   Премногоуважаемый ревьюер, здравствуй!
+    Во-первых, благодарю Вас за Ваш труд!  Я пока не представляю, КАК! Вы это делаете! У меня бывают трудности разобраться в том, что я сам написал, а в чужом коде.... В общем , моё Вам уважение! 
+    А во-вторых, сразу прошу прощения за ява-скрипт! Я смотрю на этот код и понимаю, да, он (вроде бы) работает, но мне самому не очень нравится, как он структурирован, точнее он вообще получился не структурирован и с огромным количеством коментариев. Я всё знаю про коментарии, что надо писать только то, что необходимо, и чем короче, тем лучше, но это мой первый код, и я коментарии писал для себя (как для утёнка), чтобы лучше вникнуть во все взаимодействия функций и методов. Конечно, если нужно , я всё копирну, а здесь потру. Ну и, конечно же, жду Ваших замечаний )) */
+
 // Проверяем, что подключили скрипт и он работает
 //console.log('Hello, world !');
 
@@ -26,11 +30,14 @@ const formAddCardElement = document.querySelector('.popup__form-new-card');
 const inPlaceNameElement = formAddCardElement.querySelector('.popup__form-input_place-name');
 const inPlaceLinkElement = formAddCardElement.querySelector('.popup__form-input_link');
 
+//--  Переменные для зум-контейнера
+const zoomContainer = document.querySelector('.popup_zoom');//* весь контейнер зум
+const imgPopupElement = zoomContainer.querySelector('.popup__img');//* переменная для хранения изображения
+const imgTitlePopupElement = zoomContainer.querySelector('.popup__img-title');//* переменная для хранения названия изображения
+
 //--  Переменные для Card и Template
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-
-console.log(cardTemplate + ' =2');
 
 //=== Add massive & render all cards ===//
 
@@ -62,24 +69,32 @@ const initialCards = [
   },
 ];
 //========================================================
-//-----AddCards (Добавляем карточки)
+//---  Добавляем карточки
 const generateCard = (dataCard) => {
   const newCard = cardTemplate.cloneNode(true);
   const imageAdd = newCard.querySelector('.card__image'); 
   const nameAdd = newCard.querySelector('.card__title');
-  //var like toggle
+  //--  переменные для тумблера лайков
   const cardLikeBtn = newCard.querySelector('.card__like-btn');
   const trashBox = newCard.querySelector('.card__del-btn');
-
+  
   imageAdd.src = dataCard.link;
   nameAdd.textContent = dataCard.name;
   imageAdd.alt = 'картинка ' + dataCard.name;
 
+  imageAdd.addEventListener('click', zoomPopupHandler);
   cardLikeBtn.addEventListener('click', likeTglElement);
   trashBox.addEventListener('click', delCard);
   
   return newCard;
 };
+
+const zoomPopupHandler = (evt) => {
+  imgPopupElement.src = evt.target.src;
+  imgPopupElement.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
+  imgTitlePopupElement.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  openPopup(zoomContainer);
+}
 
 //Функция добавления лайка
 const likeTglElement = (evt) => {
@@ -96,7 +111,6 @@ const delCard = (evt) => {
 const addNewCard = (dataCard, newElement) => {
   const element = generateCard(dataCard);
   newElement.prepend(element);
-  console.log('addNewCard?');
 }
 
 //* Функция заполнения полей "инпут"
@@ -114,7 +128,6 @@ const formAddCardSubmitHandler = (evt) => {
   };
   addNewCard(addNewCardElement, cardsContainer);
   closePopup();
-  console.log('submitNewCard');
   evt.target.reset();
 }
 
@@ -123,7 +136,6 @@ const formProfileSubmitHandler = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   profileNameElement.textContent = nameInputElement.value;
   profileActivityElement.textContent = aboutInputElement.value;
-  console.log('submit edit');
   closePopup();
 }
 
@@ -131,14 +143,12 @@ const formProfileSubmitHandler = (evt) => {
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
 const openPopup = (evt) => {
   evt.classList.add('popup_opened');
-  console.log(evt.classList + ' opened')
 }
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElement" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
 const closePopup = () => {
   popupElement.forEach(function(element){
     element.classList.remove('popup_opened');
-    console.log('closePopup!')
   })
 }
 
@@ -154,9 +164,9 @@ cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) )
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
 popupCloseBtnElement.forEach( (evt) => evt.addEventListener('click', closePopup) );
 
-formAddCardElement.addEventListener('submit', formAddCardSubmitHandler),console.log(formAddCardElement + ' formAddCardElement');//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "formAddCardSubmitHandler"
+formAddCardElement.addEventListener('submit', formAddCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "formAddCardSubmitHandler"
 
-formEditElement.addEventListener('submit', formProfileSubmitHandler),console.log(formEditElement + ' formEditElement');//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+formEditElement.addEventListener('submit', formProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
 //Внимание! инициируем ниже функций!
 initialCards.forEach((dataCard) => {
