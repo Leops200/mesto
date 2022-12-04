@@ -21,6 +21,11 @@ const formEditElement = document.querySelector('.popup__form-edit');//* окно
 const nameInputElement = formEditElement.querySelector('.popup__form-input_other-name');//* окно редактирования имени
 const aboutInputElement = formEditElement.querySelector('.popup__form-input_other-about');//* окно редактирования хобби
 
+//--  Переменные для работы с формой карточек:
+const formAddCardElement = document.querySelector('.popup__form-new-card');
+const inPlaceNameElement = formAddCardElement.querySelector('.popup__form-input_place-name');
+const inPlaceLinkElement = formAddCardElement.querySelector('.popup__form-input_link');
+
 //--  Переменные для Card и Template
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
@@ -85,11 +90,14 @@ const likeTglElement = (evt) => {
 const delCard = (evt) => {
   evt.target.closest('.card').remove();
 }
-//Внимание! инициируем ниже функций!
-initialCards.forEach((dataCard) => {
-  const newCardAdd = generateCard(dataCard);
-  cardsContainer.prepend(newCardAdd);
-});
+
+
+//* Функция добавления карточки через форму ("Submit")
+const addNewCard = (dataCard, newElement) => {
+  const element = generateCard(dataCard);
+  newElement.prepend(element);
+  console.log('addNewCard?');
+}
 
 //* Функция заполнения полей "инпут"
 const profileFillers = () =>{
@@ -97,11 +105,25 @@ const profileFillers = () =>{
   aboutInputElement.value = profileActivityElement.textContent;
 }
 
-//*  функция сохранения (отправки) введённых данных
+//*  Функция сохранения (отправки) введённых данных для добавления карточки
+const formAddCardSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const addNewCardElement = {
+    name: inPlaceNameElement.value,
+    link: inPlaceLinkElement.value
+  };
+  addNewCard(addNewCardElement, cardsContainer);
+  closePopup();
+  console.log('submitNewCard');
+  evt.target.reset();
+}
+
+//*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
 const formProfileSubmitHandler = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   profileNameElement.textContent = nameInputElement.value;
   profileActivityElement.textContent = aboutInputElement.value;
+  console.log('submit edit');
   closePopup();
 }
 
@@ -109,7 +131,7 @@ const formProfileSubmitHandler = (evt) => {
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
 const openPopup = (evt) => {
   evt.classList.add('popup_opened');
-  console.log(' opened')
+  console.log(evt.classList + ' opened')
 }
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElement" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
@@ -127,11 +149,19 @@ profileBtnOnElement.addEventListener('click',() => {
 });
 
 //
-cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement));//* То-же , что и выше, на кнопку добавления новой карточки
+cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) );//* То-же , что и выше, на кнопку добавления новой карточки
 
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
 popupCloseBtnElement.forEach( (evt) => evt.addEventListener('click', closePopup) );
 
-formEditElement.addEventListener('submit', formProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+formAddCardElement.addEventListener('submit', formAddCardSubmitHandler),console.log(formAddCardElement + ' formAddCardElement');//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "formAddCardSubmitHandler"
+
+formEditElement.addEventListener('submit', formProfileSubmitHandler),console.log(formEditElement + ' formEditElement');//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+
+//Внимание! инициируем ниже функций!
+initialCards.forEach((dataCard) => {
+  const newCardAdd = generateCard(dataCard);
+  cardsContainer.append(newCardAdd);
+});
 
 //  console.log('end script');
