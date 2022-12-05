@@ -6,5 +6,6 @@
   border-radius: 10px;
   height: 362px;
   width: 100%;
+  max-width: 282px;
   position: relative;
 }
