@@ -8,8 +8,8 @@
 // Делаем выборку ДОМ элементов:
 //  Глобальные переменные:
 //  для работы с попАп:
-const popupElement = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
-const popupCloseBtnElement = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
+const popupElements = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
+const popupCloseBtnElements = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
 const profileEditElement = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
 const newCardAddElement = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
 
@@ -145,9 +145,9 @@ const openPopup = (evt) => {
   evt.classList.add('popup_opened');
 }
 
-//* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElement" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
+//* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElements" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
 const closePopup = () => {
-  popupElement.forEach(function(element){
+  popupElements.forEach(function(element){
     element.classList.remove('popup_opened');
   })
 }
@@ -162,7 +162,7 @@ profileBtnOnElement.addEventListener('click',() => {
 cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) );//* То-же , что и выше, на кнопку добавления новой карточки
 
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
-popupCloseBtnElement.forEach( (evt) => evt.addEventListener('click', closePopup) );
+popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) );
 
 formAddCardElement.addEventListener('submit', formAddCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "formAddCardSubmitHandler"
 
