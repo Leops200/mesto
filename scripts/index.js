@@ -1,6 +1,4 @@
-/*   Премногоуважаемый ревьюер, здравствуй!
-    Во-первых, благодарю Вас за Ваш труд!  Я пока не представляю, КАК! Вы это делаете! У меня бывают трудности разобраться в том, что я сам написал, а в чужом коде.... В общем , моё Вам уважение! 
-    А во-вторых, сразу прошу прощения за ява-скрипт! Я смотрю на этот код и понимаю, да, он (вроде бы) работает, но мне самому не очень нравится, как он структурирован, точнее он вообще получился не структурирован и с огромным количеством коментариев. Я всё знаю про коментарии, что надо писать только то, что необходимо, и чем короче, тем лучше, но это мой первый код, и я коментарии писал для себя (как для утёнка), чтобы лучше вникнуть во все взаимодействия функций и методов. Конечно, если нужно , я всё копирну, а здесь потру. Ну и, конечно же, жду Ваших замечаний )) */
+/*   Здравствуйте михаил! Благодарю Вас за Вашу работу, она очень важна для таких новичков, как я. Я исправил все Ваши замечания, новых ошибок (вроде) не наделал (проверьте, пожалуйста, ещё раз внимательно). Спасибо Вам! Жду новых замечаний! */
 
 // Проверяем, что подключили скрипт и он работает
 //console.log('Hello, world !');
@@ -114,13 +112,13 @@ const addNewCard = (dataCard, newElement) => {
 }
 
 //* Функция заполнения полей "инпут"
-const profileFillers = () =>{
+const fillingProfile = () =>{
   nameInputElement.value = profileNameElement.textContent;
   aboutInputElement.value = profileActivityElement.textContent;
 }
 
 //*  Функция сохранения (отправки) введённых данных для добавления карточки
-const formAddCardSubmitHandler = (evt) => {
+const fillingCardSubmitHandler = (evt) => {
   evt.preventDefault();
   const addNewCardElement = {
     name: inPlaceNameElement.value,
@@ -132,7 +130,7 @@ const formAddCardSubmitHandler = (evt) => {
 }
 
 //*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
-const formProfileSubmitHandler = (evt) => {
+const fillingProfileSubmitHandler = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   profileNameElement.textContent = nameInputElement.value;
   profileActivityElement.textContent = aboutInputElement.value;
@@ -155,7 +153,7 @@ const closePopup = () => {
 //* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(profileEditElement)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
 profileBtnOnElement.addEventListener('click',() => {
   openPopup (profileEditElement);
-  profileFillers();
+  fillingProfile();
 });
 
 //
@@ -164,9 +162,9 @@ cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) )
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
 popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) );
 
-formAddCardElement.addEventListener('submit', formAddCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "formAddCardSubmitHandler"
+formAddCardElement.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
-formEditElement.addEventListener('submit', formProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+formEditElement.addEventListener('submit', fillingProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
 //Внимание! инициируем ниже функций!
 initialCards.forEach((dataCard) => {
