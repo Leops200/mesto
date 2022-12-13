@@ -1,8 +1,7 @@
-/*   Здравствуйте михаил! Благодарю Вас за Вашу работу, она очень важна для таких новичков, как я. Я исправил все Ваши замечания, новых ошибок (вроде) не наделал (проверьте, пожалуйста, ещё раз внимательно). Спасибо Вам! Жду новых замечаний! */
-
-// Проверяем, что подключили скрипт и он работает
-//console.log('Hello, world !');
-
+import {test} from './variables.js';
+import {initialCards} from './variables.js';
+const escButton = 'Escape';
+console.log(test + ' !');
 // Делаем выборку ДОМ элементов:
 //  Глобальные переменные:
 //  для работы с попАп:
@@ -10,6 +9,7 @@ const popupElements = document.querySelectorAll('.popup');//* здесь наз�
 const popupCloseBtnElements = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
 const profileEditElement = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
 const newCardAddElement = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
+const openModal = document.querySelector('.popup_opened');
 
 //--  Переменные для  профиля
 const profileElement = document.querySelector('.profile');//* назначаем конкретный блок - профиль 
@@ -38,8 +38,8 @@ const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 //=== Add massive & render all cards ===//
-
-const initialCards = [
+//import {initialCards} from './variables';
+/*const initialCards = [
 
   {
     name: 'Улан-Удэ',
@@ -65,7 +65,7 @@ const initialCards = [
     name: 'Судак',
     link: './images/Судак.jpg',
   },
-];
+];*/
 //========================================================
 //---  Добавляем карточки
 const generateCard = (dataCard) => {
@@ -157,10 +157,42 @@ profileBtnOnElement.addEventListener('click',() => {
 });
 
 //
+
+
+//* закрытие попап при клике в оверлэй
+const closePopupByClickOnOverlayOrEsc = (evt) => {
+  //const openModal = document.querySelector('.popup_opened');
+  if ((evt.target === evt.currentTarget) || (evt.key === escButton)){
+    closePopup();
+    console.log(evt.target, evt.key);
+  }
+}
+
 cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) );//* То-же , что и выше, на кнопку добавления новой карточки
 
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
-popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) );
+popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) ) ;
+
+//* не хватило знаний повесить слушатель только на попапы, повесил на весь документ
+document.addEventListener('keydown', function(evt) {
+  if (evt.key === "Escape") closePopup();
+});
+
+/*
+//CLOSE POPUP BY ESC BUTTON FUNCTION
+const closePopupByDownEscButton = (evt) => {
+  const openModal = document.querySelector('.popup_opened');
+  if (evt.key === escButton) {
+    closePopup(popup);
+  }
+}
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByDownEscButton);
+}*/
+
+popupElements.forEach((evt) => evt.addEventListener('click', closePopupByClickOnOverlayOrEsc));
 
 formAddCardElement.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
