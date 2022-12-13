@@ -37,35 +37,6 @@ const imgTitlePopupElement = zoomContainer.querySelector('.popup__img-title');//
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
-//=== Add massive & render all cards ===//
-//import {initialCards} from './variables';
-/*const initialCards = [
-
-  {
-    name: 'Улан-Удэ',
-    link: './images/Улан-Удэ.jpg',
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: './images/Гора_Эльбрус.png',
-  },
-  {
-    name: 'Домбай',
-    link: './images/Домбай.png',
-  },
-  {
-    name: 'Сулак',
-    link: './images/Сулак.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: './images/Байкал.jpg',
-  },
-  {
-    name: 'Судак',
-    link: './images/Судак.jpg',
-  },
-];*/
 //========================================================
 //---  Добавляем карточки
 const generateCard = (dataCard) => {
@@ -160,11 +131,11 @@ profileBtnOnElement.addEventListener('click',() => {
 
 
 //* закрытие попап при клике в оверлэй
-const closePopupByClickOnOverlayOrEsc = (evt) => {
+const closePopupByClickOnOverlay = (evt) => {
   //const openModal = document.querySelector('.popup_opened');
-  if ((evt.target === evt.currentTarget) || (evt.key === escButton)){
+  if (evt.target === evt.currentTarget) /*|| (evt.key === escButton)*/{
     closePopup();
-    console.log(evt.target, evt.key);
+    //console.log(evt.target, evt.key);
   }
 }
 
@@ -178,21 +149,7 @@ document.addEventListener('keydown', function(evt) {
   if (evt.key === "Escape") closePopup();
 });
 
-/*
-//CLOSE POPUP BY ESC BUTTON FUNCTION
-const closePopupByDownEscButton = (evt) => {
-  const openModal = document.querySelector('.popup_opened');
-  if (evt.key === escButton) {
-    closePopup(popup);
-  }
-}
-
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByDownEscButton);
-}*/
-
-popupElements.forEach((evt) => evt.addEventListener('click', closePopupByClickOnOverlayOrEsc));
+popupElements.forEach((evt) => evt.addEventListener('click', closePopupByClickOnOverlay));
 
 formAddCardElement.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
