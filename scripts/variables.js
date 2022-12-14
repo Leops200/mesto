@@ -29,10 +29,10 @@ export const initialCards = [
 
  
  export const enableValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-input',
-  submitButtonSelector: '.popup__form-btn-save',
-  inactiveButtonClass: 'popup__form-btn-save_dsbl',
-  inputErrorClass: 'popup__form-inpt_type-err',
-  errorClass: 'popup__form-inpt-err_on'
+  formSelector: '.popup__form', 
+  inputSelector: '.popup__form-input', // поле ввода
+  submitButtonSelector: '.popup__form-btn-save', // кнопка
+  inactiveButtonClass: 'popup__form-btn-save_dsbl', //мдфктр кнопки
+  inputErrorClass: 'popup__form-inpt_type-err', //мдфктр поля ввода
+  errorClass: 'popup__form-inpt-err_on' //add to span
 };
