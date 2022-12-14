@@ -52,4 +52,5 @@
 @import url(../blocks/popup/__form-input/_other-about/popup__form-input_other-about.css);
 @import url(../blocks/popup/__form-input/_other-name/popup__form-input_other-name.css);
 @import url(../blocks/popup/__form-btn-save/popup__form-btn-save.css);
+@import url(../blocks/popup/__form-btn-save/_dsbl/popup__form-btn-save_dsbl.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);

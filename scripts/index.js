@@ -1,5 +1,6 @@
 import {test} from './variables.js';
 import {initialCards} from './variables.js';
+import {enableValidation} from './variables.js';
 const escButton = 'Escape';
 console.log(test + ' !');
 // Делаем выборку ДОМ элементов:

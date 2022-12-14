@@ -46,10 +46,12 @@
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <button class="button popup__close-btn" type="button"></button>
-      <form class="popup__form popup__form-edit" id="profile-edit">
-        <input class="popup__form-input popup__form-input_other-name" type="text" form="profile-edit" placeholder="Ваше имя">
-        <input class="popup__form-input popup__form-input_other-about" type="text" form="profile-edit" placeholder="О себе">
-        <button class="button popup__form-btn-save" type="submit" form="profile-edit">Сохранить</button>
+      <form class="popup__form popup__form-edit forms" novalidate id="profile-edit" name="profile-edit">
+        <input class="popup__form-input popup__form-input_other-name" autofocus type="text" form="profile-edit" placeholder="Ваше имя" name="name" id="name-input" minlength="2" maxlength="40" required>
+        <span class="popup__form-inpt-err name-inpt-err"></span>
+        <input class="popup__form-input popup__form-input_other-about" type="text" form="profile-edit" placeholder="О себе" name="about" id="about" required minlength="2" maxlength="200">
+        <span class="popup__form-inpt-err about-inpt-err"></span>
+        <button class="button popup__form-btn-save popup__form-btn-save_dsbl" type="submit" form="profile-edit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -58,9 +60,11 @@
     <div class="popup__container">
       <h2 class="popup__title popup__title-new-card">Новое место</h2>
       <button class="button popup__close-btn" type="button"></button>
-      <form class="popup__form popup__form-new-card" id="new-card">
-        <input class="popup__form-input popup__form-input_place-name" type="text" form="new-card" placeholder="Название">
-        <input class="popup__form-input popup__form-input_link" type="url" form="new-card" placeholder="Ваша ссылка">
+      <form class="popup__form popup__form-new-card" id="new-card" name="new-card" novalidate>
+        <input class="popup__form-input popup__form-input_place-name" type="text" form="new-card" placeholder="Название" minlength="2" maxlength="30" required>
+        <span class="popup__form-inpt-err place-inpt-err"></span>
+        <input class="popup__form-input popup__form-input_link" type="url" form="new-card" placeholder="Ваша ссылка" name="img-url" id="url-inpt" required>
+        <span class="popup__form-inpt-err url-inpt-err"></span>
         <button class="button popup__form-btn-save" type="submit" form="new-card">Создать</button>
       </form>
     </div>
@@ -85,6 +89,7 @@
     </div>
   </template>
   <script src="./scripts/variables.js" type="module"></script>
+  <script src="./scripts/validate.js" type="module"></script>
   <script src="./scripts/index.js" type="module"></script>
 </body>
 </html>
