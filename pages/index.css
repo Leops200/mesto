@@ -31,7 +31,6 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
@@ -39,9 +38,10 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__form-edit/popup__form-edit.css);
 @import url(../blocks/popup/__form-input/_link/popup__form-input_link.css);
+
 @import url(../blocks/popup/__title-new-card/popup__title-new-card.css);
 @import url(../blocks/popup/__form-input/_place-name/popup__form-input_place-name.css);
-@import url(../blocks/popup/__form-input/_type-err/popup__form-inpt_type-err.css);
+
 @import url(../blocks/popup/__form-inpt-err/popup__form-inpt-err.css);
 @import url(../blocks/popup/__form-inpt-err/_on/popup__form-inpt-err_on.css);
 @import url(../blocks/popup/__form-new-card/popup__form-new-card.css);
@@ -54,6 +54,7 @@
 @import url(../blocks/popup/__container-zoom/popup__container-zoom.css);
 @import url(../blocks/popup/__form-input/_other-about/popup__form-input_other-about.css);
 @import url(../blocks/popup/__form-input/_other-name/popup__form-input_other-name.css);
+@import url(../blocks/popup/__form-input/_type-err/popup__form-input_type-err.css);
 @import url(../blocks/popup/__form-btn-save/popup__form-btn-save.css);
 @import url(../blocks/popup/__form-btn-save/_dsbl/popup__form-btn-save_dsbl.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
