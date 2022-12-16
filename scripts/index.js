@@ -149,7 +149,6 @@ cardAddBtnElement.addEventListener('click', () => {
 
 //* закрытие попап при клике в оверлэй
 const closePopupByClickOnOverlay = (evt) => {
-  //const openModal = document.querySelector('.popup_opened');
   if (evt.target === evt.currentTarget) {
     closePopup();
     //console.log(evt.target, evt.key);
