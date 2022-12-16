@@ -1,3 +1,4 @@
+/* -- В дальнейшем сюда переместить все константы и переменные, чтобы визуально разгрузить папку "index.js"  */
 export const initialCards = [
 
   {
@@ -27,9 +28,9 @@ export const initialCards = [
 ];
  export const test= 'test';
 
- 
- export const enableValidation = {
-  formSelector: '.popup__form', 
+
+ export const validationObj = {
+  formSelector: '.popup__form',// поле всей формы
   inputSelector: '.popup__form-input', // поле ввода
   submitButtonSelector: '.popup__form-btn-save', // кнопка
   inactiveButtonClass: 'popup__form-btn-save_dsbl', //мдфктр кнопки

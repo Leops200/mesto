@@ -1,8 +1,16 @@
-import {test} from './variables.js';
+/* Для проверяющего:
+Здравствуйте, сразу хочу поблагодарить Вас за Ваш труд, и
+извиниться за обилие коментариев. Я знаю, что их нужно минимизировать, но пока
+я их оставляю больше для себя, в качестве подсказок. Если они мешают проверке - конечно я всё сохраню в отдельном файле , а тут всё почищу. Только скажите)) */
+
+import { test } from './variables.js';
+import {validationObj} from './variables.js';
 import {initialCards} from './variables.js';
-import {enableValidation} from './variables.js';
-const escButton = 'Escape';
-console.log(test + ' !');
+import {enableValidation} from './validate.js';
+import {resetErrs} from './validate.js';
+
+//console.log(test + ' !');
+
 // Делаем выборку ДОМ элементов:
 //  Глобальные переменные:
 //  для работы с попАп:
@@ -38,6 +46,8 @@ const imgTitlePopupElement = zoomContainer.querySelector('.popup__img-title');//
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+const escButton = 'Escape'; //кнопка для закрытия попап
+
 //========================================================
 //---  Добавляем карточки
 const generateCard = (dataCard) => {
@@ -64,30 +74,30 @@ const zoomPopupHandler = (evt) => {
   imgPopupElement.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
   imgTitlePopupElement.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
   openPopup(zoomContainer);
-}
+};
 
 //Функция добавления лайка
 const likeTglElement = (evt) => {
   evt.target.classList.toggle('card__like-btn_on');
-}
+};
 
 // Функция "карточка в мусор"
 const delCard = (evt) => {
   evt.target.closest('.card').remove();
-}
+};
 
 
 //* Функция добавления карточки через форму ("Submit")
 const addNewCard = (dataCard, newElement) => {
   const element = generateCard(dataCard);
   newElement.prepend(element);
-}
+};
 
 //* Функция заполнения полей "инпут"
 const fillingProfile = () =>{
   nameInputElement.value = profileNameElement.textContent;
   aboutInputElement.value = profileActivityElement.textContent;
-}
+};
 
 //*  Функция сохранения (отправки) введённых данных для добавления карточки
 const fillingCardSubmitHandler = (evt) => {
@@ -99,7 +109,7 @@ const fillingCardSubmitHandler = (evt) => {
   addNewCard(addNewCardElement, cardsContainer);
   closePopup();
   evt.target.reset();
-}
+};
 
 //*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
 const fillingProfileSubmitHandler = (evt) => {
@@ -107,47 +117,51 @@ const fillingProfileSubmitHandler = (evt) => {
   profileNameElement.textContent = nameInputElement.value;
   profileActivityElement.textContent = aboutInputElement.value;
   closePopup();
-}
+};
 
 // Реализуем работу не через "переключатель", а через разные функции:
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
 const openPopup = (evt) => {
   evt.classList.add('popup_opened');
-}
+};
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElements" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
 const closePopup = () => {
   popupElements.forEach(function(element){
     element.classList.remove('popup_opened');
   })
-}
+};
 
 //* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(profileEditElement)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
-profileBtnOnElement.addEventListener('click',() => {
-  openPopup (profileEditElement);
+profileBtnOnElement.addEventListener('click', () => {
+  //console.log('klick');
   fillingProfile();
+  resetErrs(profileElement, validationObj);
+  enableValidation(validationObj);
+  openPopup(profileEditElement);
 });
 
-//
-
+//* То-же , что и выше, на кнопку добавления новой карточки
+cardAddBtnElement.addEventListener('click', () => {
+  enableValidation(validationObj);
+  openPopup(newCardAddElement);
+});
 
 //* закрытие попап при клике в оверлэй
 const closePopupByClickOnOverlay = (evt) => {
   //const openModal = document.querySelector('.popup_opened');
-  if (evt.target === evt.currentTarget) /*|| (evt.key === escButton)*/{
+  if (evt.target === evt.currentTarget) {
     closePopup();
     //console.log(evt.target, evt.key);
   }
-}
-
-cardAddBtnElement.addEventListener('click', () => openPopup(newCardAddElement) );//* То-же , что и выше, на кнопку добавления новой карточки
+};
 
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
 popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) ) ;
 
-//* не хватило знаний повесить слушатель только на попапы, повесил на весь документ
+//* закрытие любого попапа по клавише "ESC"
 document.addEventListener('keydown', function(evt) {
-  if (evt.key === "Escape") closePopup();
+  if (evt.key === escButton) closePopup();
 });
 
 popupElements.forEach((evt) => evt.addEventListener('click', closePopupByClickOnOverlay));
@@ -162,4 +176,4 @@ initialCards.forEach((dataCard) => {
   cardsContainer.append(newCardAdd);
 });
 
-//  console.log('end script');
+  //console.log('end script');
