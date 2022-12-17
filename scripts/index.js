@@ -1,11 +1,14 @@
-/* Для проверяющего:
-Здравствуйте, сразу хочу поблагодарить Вас за Ваш труд, и
-извиниться за обилие коментариев. Я знаю, что их нужно минимизировать, но пока
+/* Здравствуйте, Павел! Ещё раз спасибо Вам за Вашу работу, она очень важна для таких новичков, как я!
+Я , вроде бы, поправил все критические ошибки, частично постарался исправить то, что можно лучше, но не доделал стили, чтоб попап появлялся красивее (обязательно займусь и переделаю, мне самому этот вариант уже не очень нравится). Не уверен, но мог наделать ещё какких-то ошибок пока занимался исправлениями, проверьте пожалуйста меня ещё раз. 
+Спасибо. С уважением, Леонид.
+
+Извиняюсь за обилие коментариев. Я знаю, что их нужно минимизировать, но пока
 я их оставляю больше для себя, в качестве подсказок. Если они мешают проверке - конечно я всё сохраню в отдельном файле , а тут всё почищу. Только скажите)) */
 
-//import {} from './constants.js'
 import {popups} from './constants.js';
-import {popupCloseBtnElements} from './constants.js';
+import {profileCloseBtn} from './constants.js';
+import {cadrAddCloseBtn} from './constants.js';
+import {zoomCloseBtn} from './constants.js';
 import {popuProfileEdit} from './constants.js';
 import {popupNewCardAdd} from './constants.js';
 import {popuProfile} from './constants.js';
@@ -29,6 +32,7 @@ import {initialCards} from './constants.js';
 import {enableValidation} from './validate.js';
 import {resetErrs} from './validate.js';
 import {escButton} from './constants.js';
+import { click } from './constants.js';
 
 //========================================================
 
@@ -48,20 +52,21 @@ const generateCard = (dataCard) => {
   nameAdd.textContent = dataCard.name;
   imageAdd.alt = 'картинка ' + dataCard.name;
 
-  imageAdd.addEventListener('click', handleImageClick);
-  cardLikeBtn.addEventListener('click', handleLikeClick);
-  trashBox.addEventListener('click', deletedCard);
+  imageAdd.addEventListener(click, () => {
+    handleImageClick(nameAdd, imageAdd)
+  });
+  cardLikeBtn.addEventListener(click, handleLikeClick);
+  trashBox.addEventListener(click, deletedCard);
   
   return newCard;
 };
 
-const handleImageClick = (evt) => {
-  imgPopupZoom.src = evt.target.src;
-  imgPopupZoom.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
-  imgTitlePopupZoom.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+const handleImageClick = (nameAdd, imageAdd) => {
+  imgPopupZoom.src = imageAdd.src;
+  imgPopupZoom.alt = nameAdd.textContent;
+  imgTitlePopupZoom.textContent = nameAdd.textContent;
   openPopup(zoomPopup);
-};
-
+}
 
 //Функция добавления лайка
 const handleLikeClick = (evt) => {
@@ -110,17 +115,25 @@ const handleSubmitFormAddCard = (evt) => {
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByOverlayOrEscBtn);
 };
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popups" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
+/*
 const closePopup = () => {
   popups.forEach(function(element){
     element.classList.remove('popup_opened');
   })
-};
+};*/
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByOverlayOrEscBtn);
+}
+
 
 //* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(popuProfileEdit)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
-popupProfileButtonOpen.addEventListener('click', () => {
+popupProfileButtonOpen.addEventListener(click, () => {
   //console.log('klick');
   fillingProfile();
   resetErrs(popuProfile, validationObj);
@@ -129,28 +142,51 @@ popupProfileButtonOpen.addEventListener('click', () => {
 });
 
 //* То-же , что и выше, на кнопку добавления новой карточки
-popupCardButtonOpen.addEventListener('click', () => {
+popupCardButtonOpen.addEventListener(click, () => {
   //enableValidation(validationObj); 
   openPopup(popupNewCardAdd);
 });
 
-//* закрытие попап при клике в оверлэй
-const closePopupByClickOnOverlay = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup();
-    //console.log(evt.target, evt.key);
+//* закрытие попап при клике в оверлэй или ESC
+const closePopupByOverlayOrEscBtn = (evt) => {
+  const openModal = document.querySelector('.popup_opened');
+  if((evt.target === evt.currentTarget) || (evt.key === escButton)) {
+    closePopup(openModal);
   }
 };
 
+/*const closePopupByEscBtn = (evt) => {
+  const openModal = document.querySelector('.popup_opened');
+  if (evt.key === escButton) {
+    closePopup(openModal);
+  }
+}
+*/
+
 //* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
-popupCloseBtnElements.forEach( (evt) => evt.addEventListener('click', closePopup) ) ;
+/*
+popupCloseBtnElements.forEach( (evt) => evt.addEventListener(click, closePopup) );
+*/
+
+//-- Зеркальное закрытие попапов ==============================
+
+profileCloseBtn.addEventListener(click, () => closePopup(popuProfileEdit));
+
+cadrAddCloseBtn.addEventListener(click, () => closePopup(popupNewCardAdd));
+
+zoomCloseBtn.addEventListener(click, () => closePopup(zoomPopup));
+
+//==============================================================
+
 
 //* закрытие любого попапа по клавише "ESC"
+/*
 document.addEventListener('keydown', function(evt) {
   if (evt.key === escButton) closePopup();
 });
+*/
 
-popups.forEach((popup) => popup.addEventListener('click', closePopupByClickOnOverlay));
+popups.forEach((popup) => popup.addEventListener(click, closePopupByOverlayOrEscBtn));
 
 formAddCard.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
