@@ -3,52 +3,38 @@
 извиниться за обилие коментариев. Я знаю, что их нужно минимизировать, но пока
 я их оставляю больше для себя, в качестве подсказок. Если они мешают проверке - конечно я всё сохраню в отдельном файле , а тут всё почищу. Только скажите)) */
 
-import { test } from './variables.js';
-import {validationObj} from './variables.js';
-import {initialCards} from './variables.js';
+//import {} from './constants.js'
+import {popups} from './constants.js';
+import {popupCloseBtnElements} from './constants.js';
+import {popuProfileEdit} from './constants.js';
+import {popupNewCardAdd} from './constants.js';
+import {popuProfile} from './constants.js';
+import {popuProfileName} from './constants.js';
+import {popuProfileActivity} from './constants.js';
+import {popupProfileButtonOpen} from './constants.js';
+import {popupCardButtonOpen} from './constants.js';
+import {formProfileEdit} from './constants.js';
+import {formNameInput} from './constants.js';
+import {formAboutInput} from './constants.js';
+import {formAddCard} from './constants.js';
+import {formPlaceNameInput} from './constants.js';
+import {formPlaceLinkInput} from './constants.js';
+import {zoomPopup} from './constants.js';
+import {imgPopupZoom} from './constants.js';
+import {imgTitlePopupZoom } from './constants.js';
+import {cardsContainer} from './constants.js';
+import {cardTemplate} from './constants.js';
+import {validationObj} from './constants.js';
+import {initialCards} from './constants.js';
 import {enableValidation} from './validate.js';
 import {resetErrs} from './validate.js';
-
-//console.log(test + ' !');
-
-// Делаем выборку ДОМ элементов:
-//  Глобальные переменные:
-//  для работы с попАп:
-const popupElements = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
-const popupCloseBtnElements = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
-const profileEditElement = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
-const newCardAddElement = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
-const openModal = document.querySelector('.popup_opened');
-
-//--  Переменные для  профиля
-const profileElement = document.querySelector('.profile');//* назначаем конкретный блок - профиль 
-const profileNameElement = profileElement.querySelector('.profile__user-name');//* имя в профиле
-const profileActivityElement = profileElement.querySelector('.profile__user-activity');//* хобби в профиле
-const profileBtnOnElement = profileElement.querySelector('.profile__edit-btn');//* кнопка "включения" профиля
-const cardAddBtnElement = profileElement.querySelector('.profile__add-btn');//* кнопка добавления нового профиля
-
-//--  Переменные для работы с формой профиля:
-const formEditElement = document.querySelector('.popup__form-edit');//* окно редактирования профиля
-const nameInputElement = formEditElement.querySelector('.popup__form-input_other-name');//* окно редактирования имени
-const aboutInputElement = formEditElement.querySelector('.popup__form-input_other-about');//* окно редактирования хобби
-
-//--  Переменные для работы с формой карточек:
-const formAddCardElement = document.querySelector('.popup__form-new-card');
-const inPlaceNameElement = formAddCardElement.querySelector('.popup__form-input_place-name');
-const inPlaceLinkElement = formAddCardElement.querySelector('.popup__form-input_link');
-
-//--  Переменные для зум-контейнера
-const zoomContainer = document.querySelector('.popup_zoom');//* весь контейнер зум
-const imgPopupElement = zoomContainer.querySelector('.popup__img');//* переменная для хранения изображения
-const imgTitlePopupElement = zoomContainer.querySelector('.popup__img-title');//* переменная для хранения названия изображения
-
-//--  Переменные для Card и Template
-const cardsContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-
-const escButton = 'Escape'; //кнопка для закрытия попап
+import {escButton} from './constants.js';
 
 //========================================================
+
+enableValidation(validationObj);
+/*enableValidation должна вызываться один раз в глобальной области видимости. Сейчас получается, что при открытии форм каждый раз заново запускаются все функции из модуля валидации — заново выбираются по селектору все необходимые элементы на странице, заново устанавливаются все слушатели, переназначаются все обработчики. Это относительно ресурсоемкий процесс, негативно сказывающийся на производительности.*/
+
 //---  Добавляем карточки
 const generateCard = (dataCard) => {
   const newCard = cardTemplate.cloneNode(true);
@@ -62,89 +48,90 @@ const generateCard = (dataCard) => {
   nameAdd.textContent = dataCard.name;
   imageAdd.alt = 'картинка ' + dataCard.name;
 
-  imageAdd.addEventListener('click', zoomPopupHandler);
-  cardLikeBtn.addEventListener('click', likeTglElement);
-  trashBox.addEventListener('click', delCard);
+  imageAdd.addEventListener('click', handleImageClick);
+  cardLikeBtn.addEventListener('click', handleLikeClick);
+  trashBox.addEventListener('click', deletedCard);
   
   return newCard;
 };
 
-const zoomPopupHandler = (evt) => {
-  imgPopupElement.src = evt.target.src;
-  imgPopupElement.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
-  imgTitlePopupElement.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
-  openPopup(zoomContainer);
+const handleImageClick = (evt) => {
+  imgPopupZoom.src = evt.target.src;
+  imgPopupZoom.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
+  imgTitlePopupZoom.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  openPopup(zoomPopup);
 };
 
+
 //Функция добавления лайка
-const likeTglElement = (evt) => {
+const handleLikeClick = (evt) => {
   evt.target.classList.toggle('card__like-btn_on');
 };
 
 // Функция "карточка в мусор"
-const delCard = (evt) => {
+const deletedCard = (evt) => {
   evt.target.closest('.card').remove();
 };
 
 
 //* Функция добавления карточки через форму ("Submit")
-const addNewCard = (dataCard, newElement) => {
+const addNewCard = (dataCard, cardContainer) => {
   const element = generateCard(dataCard);
-  newElement.prepend(element);
+  cardContainer.prepend(element);
 };
 
 //* Функция заполнения полей "инпут"
 const fillingProfile = () =>{
-  nameInputElement.value = profileNameElement.textContent;
-  aboutInputElement.value = profileActivityElement.textContent;
+  formNameInput.value = popuProfileName.textContent;
+  formAboutInput.value = popuProfileActivity.textContent;
 };
 
 //*  Функция сохранения (отправки) введённых данных для добавления карточки
 const fillingCardSubmitHandler = (evt) => {
   evt.preventDefault();
-  const addNewCardElement = {
-    name: inPlaceNameElement.value,
-    link: inPlaceLinkElement.value
+  const cardData = {
+    name: formPlaceNameInput.value,
+    link: formPlaceLinkInput.value
   };
-  addNewCard(addNewCardElement, cardsContainer);
+  addNewCard(cardData, cardsContainer);
   closePopup();
   evt.target.reset();
 };
 
 //*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
-const fillingProfileSubmitHandler = (evt) => {
+const handleSubmitFormAddCard = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
-  profileNameElement.textContent = nameInputElement.value;
-  profileActivityElement.textContent = aboutInputElement.value;
+  popuProfileName.textContent = formNameInput.value;
+  popuProfileActivity.textContent = formAboutInput.value;
   closePopup();
 };
 
 // Реализуем работу не через "переключатель", а через разные функции:
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
-const openPopup = (evt) => {
-  evt.classList.add('popup_opened');
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
 };
 
-//* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popupElements" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
+//* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popups" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
 const closePopup = () => {
-  popupElements.forEach(function(element){
+  popups.forEach(function(element){
     element.classList.remove('popup_opened');
   })
 };
 
-//* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(profileEditElement)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
-profileBtnOnElement.addEventListener('click', () => {
+//* функция "слушает" конкретную кнопку(методом addEventListener), в данном случае кнопку редактирования профиля и при клике вызывает функцию "openPopup",передавая ей параметром "(popuProfileEdit)", элемент в котором отработает функция., а "(evt)" указывает конкретную кнопку.
+popupProfileButtonOpen.addEventListener('click', () => {
   //console.log('klick');
   fillingProfile();
-  resetErrs(profileElement, validationObj);
-  enableValidation(validationObj);
-  openPopup(profileEditElement);
+  resetErrs(popuProfile, validationObj);
+  //enableValidation(validationObj);
+  openPopup(popuProfileEdit);
 });
 
 //* То-же , что и выше, на кнопку добавления новой карточки
-cardAddBtnElement.addEventListener('click', () => {
-  enableValidation(validationObj);
-  openPopup(newCardAddElement);
+popupCardButtonOpen.addEventListener('click', () => {
+  //enableValidation(validationObj); 
+  openPopup(popupNewCardAdd);
 });
 
 //* закрытие попап при клике в оверлэй
@@ -163,11 +150,11 @@ document.addEventListener('keydown', function(evt) {
   if (evt.key === escButton) closePopup();
 });
 
-popupElements.forEach((evt) => evt.addEventListener('click', closePopupByClickOnOverlay));
+popups.forEach((popup) => popup.addEventListener('click', closePopupByClickOnOverlay));
 
-formAddCardElement.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
+formAddCard.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
-formEditElement.addEventListener('submit', fillingProfileSubmitHandler);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
 //Внимание! инициируем ниже функций!
 initialCards.forEach((dataCard) => {

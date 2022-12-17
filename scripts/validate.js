@@ -7,7 +7,7 @@ export const enableValidation = (validationObj) => {
    formSelector.addEventListener('submit', (evt) =>{
      evt.preventDefault();
    })
-   formDataEvents(formSelector, restObj);
+   setEventListeners(formSelector, restObj);
   })
  };
 
@@ -17,47 +17,48 @@ export const enableValidation = (validationObj) => {
  только в этой функции, но в задании - нужно чтобы 
  каждая функция отвечала за что-то одно, по-этому разделил
  на две функции (ниже та, что управляет кнопкой) */
-const inputIncorrect = (inputs) => {
+const checkInputValidity = (inputs) => {
   return inputs.some((inputSelector) => {
     return !inputSelector.validity.valid;
   });
 };
 
 // -- Функция управления кнопкой
-const btnDisabledTgl = (inputs, btnSave, validationObj) => {
+const toggleButtonState = (inputs, btnSave, validationObj) => {
   const { inactiveButtonClass } = validationObj;
-  if (inputIncorrect(inputs)) {
+  if (checkInputValidity(inputs)) {
     btnSave.classList.add(inactiveButtonClass);
     return;
   }
-    btnSave.classList.remove(inactiveButtonClass);
+    btnSave.classList.remove(inactiveButtonClass);//меняем стиль на неактивный
+    btnSave.disabled = 'disabled';// деактивируем саму кнопку
 };
 
 // -- функция включения показа ошибки ввода
-const errVisibl = (formSelector, inputSelector, errText, validationObj) => {
+const showInputError = (formSelector, inputSelector, errText, validationObj) => {
   const { inputErrorClass, errorClass} = validationObj;
-  const errElem = formSelector.querySelector(`.${inputSelector.id}-error`);
+  const errorForm = formSelector.querySelector(`.${inputSelector.id}-error`);
   inputSelector.classList.add(inputErrorClass);
-  errElem.classList.add(errorClass);
-  errElem.textContent = errText;
+  errorForm.classList.add(errorClass);
+  errorForm.textContent = errText;
 };
 
 // -- Функция управления отображением ошибки ввода
-const valdationTestinput = (formSelector, inputSelector, validationObj) => {
+const toggleInputError = (formSelector, inputSelector, validationObj) => {
   if (!inputSelector.validity.valid) {
-    errVisibl(formSelector, inputSelector, inputSelector.validationMessage, validationObj);
+    showInputError(formSelector, inputSelector, inputSelector.validationMessage, validationObj);
     return;
   }
-    errDelete(formSelector, inputSelector, validationObj);
+    hideInputError(formSelector, inputSelector, validationObj);
 };
 
 // -- Функция удаления показа ошибки ввода
-const errDelete = (formSelector, inputSelector, validationObj) =>{
+const hideInputError = (formSelector, inputSelector, validationObj) =>{
   const { inputErrorClass, errorClass} = validationObj;
-  const errElem = formSelector.querySelector(`.${inputSelector.id}-error`);
+  const errorForm = formSelector.querySelector(`.${inputSelector.id}-error`);
   inputSelector.classList.remove(inputErrorClass);
-  errElem.classList.remove(errorClass);
-  errElem.textContent = "";
+  errorForm.classList.remove(errorClass);
+  errorForm.textContent = "";
 };
 
 // -- Функция сброса предупреждений
@@ -65,21 +66,21 @@ export const resetErrs = (formSelector, validationObj) => {
   const inputs = Array.from(formSelector.querySelectorAll(validationObj.inputSelector));
   inputs.forEach((inputSelector) => {
     if (inputSelector.classList.contains(validationObj.inputErrorClass)){
-      desErr (formSelector, inputSelector, validationObj);
+      hideInputError (formSelector, inputSelector, validationObj);
     }
   })
 };
 
 // -- Функция конфигурации слушателя 
-const formDataEvents = (formSelector, validationObj) => {
+const setEventListeners = (formSelector, validationObj) => {
   const {inputSelector, submitButtonSelector, ...restObj } = validationObj;
   const btnSave = formSelector.querySelector(submitButtonSelector);
   const inputs = [...formSelector.querySelectorAll(inputSelector)];
-  btnDisabledTgl(inputs, btnSave, restObj);
+  toggleButtonState(inputs, btnSave, restObj);
   inputs.forEach((inputSelector) => {
     inputSelector.addEventListener('input', () => {
-      btnDisabledTgl(inputs, btnSave, restObj);
-      valdationTestinput(formSelector, inputSelector, restObj);
+      toggleButtonState(inputs, btnSave, restObj);
+      toggleInputError(formSelector, inputSelector, restObj);
     })
   })
 };
