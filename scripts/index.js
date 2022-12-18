@@ -1,14 +1,16 @@
 /* Здравствуйте, Павел! Ещё раз спасибо Вам за Вашу работу, она очень важна для таких новичков, как я!
-Я , вроде бы, поправил все критические ошибки, частично постарался исправить то, что можно лучше, но не доделал стили, чтоб попап появлялся красивее (обязательно займусь и переделаю, мне самому этот вариант уже не очень нравится). Не уверен, но мог наделать ещё какких-то ошибок пока занимался исправлениями, проверьте пожалуйста меня ещё раз. 
+  Отдельное Вам спасибо за подробное объяснение по работе функций! Я бы с удовольствием у Вас учился! Даже в тренажёре не было рассказано о таких тонкостях. А Ваша подсказка с функцией закрытия по-клику в оверлей или по-крестику - это ж на мой взгляд гениально!  Спасибо Вам. Спасибо!!!
 Спасибо. С уважением, Леонид.
+
+По-поводу названий функций- у меня явно не хватает знаний английского. (стандартный базовый школьный курс, который у меня был 28лет назад) Видимо, придётся изучать еще и язык...
 
 Извиняюсь за обилие коментариев. Я знаю, что их нужно минимизировать, но пока
 я их оставляю больше для себя, в качестве подсказок. Если они мешают проверке - конечно я всё сохраню в отдельном файле , а тут всё почищу. Только скажите)) */
 
 import {popups} from './constants.js';
-import {profileCloseBtn} from './constants.js';
-import {cadrAddCloseBtn} from './constants.js';
-import {zoomCloseBtn} from './constants.js';
+//import {profileCloseBtn} from './constants.js';
+//import {cadrAddCloseBtn} from './constants.js';
+//import {zoomCloseBtn} from './constants.js';
 import {popuProfileEdit} from './constants.js';
 import {popupNewCardAdd} from './constants.js';
 import {popuProfile} from './constants.js';
@@ -115,7 +117,7 @@ const handleSubmitFormAddCard = (evt) => {
 //* openPopup -это общая функция открытия любого попАпа. "evt" мы назначаем сами, это может быть "е" или любое другое имя, указывается для того, чтобы функция "видела" какой из элементов на странице её вызвал.
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByOverlayOrEscBtn);
+  document.addEventListener('keydown', closePopupByEsc);
 };
 
 //* closePopup принимает на вход любую кнопку (на закрытие) и методом "forEach" перебирает весь массив "popups" и в каждом елементе удаляет(remove) модификатор ('popup_opened')(без точки т.к. это именно класс а не селектор)
@@ -128,7 +130,7 @@ const closePopup = () => {
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByOverlayOrEscBtn);
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 
@@ -147,28 +149,28 @@ popupCardButtonOpen.addEventListener(click, () => {
   openPopup(popupNewCardAdd);
 });
 
-//* закрытие попап при клике в оверлэй или ESC
-const closePopupByOverlayOrEscBtn = (evt) => {
-  const openModal = document.querySelector('.popup_opened');
-  if((evt.target === evt.currentTarget) || (evt.key === escButton)) {
-    closePopup(openModal);
+//* -- Функция закрытия попапа при клике в крестик или оверлей
+const closePopupByClick = (e) => {
+  if (e.target === e.currentTarget || e.target.classList.contains('popup__close-btn')) {
+    closePopup(e.currentTarget);
   }
 };
 
 /*const closePopupByEscBtn = (evt) => {
-  const openModal = document.querySelector('.popup_opened');
+  const modalIsOpen = document.querySelector('.popup_opened');
   if (evt.key === escButton) {
-    closePopup(openModal);
+    closePopup(modalIsOpen);
   }
 }
 */
 
-//* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
-/*
+/* закрытие всех попапов я решил организовать при помощи метода forEach:  мы "слушаем" клик на всех кнопках закрытия любого попАпа
+
 popupCloseBtnElements.forEach( (evt) => evt.addEventListener(click, closePopup) );
 */
 
-//-- Зеркальное закрытие попапов ==============================
+/*/-- Зеркальное закрытие попапов ==============================
+Необходимость в этих функциях отпала, т.к. это выполняется в функции closePopupByClick
 
 profileCloseBtn.addEventListener(click, () => closePopup(popuProfileEdit));
 
@@ -176,7 +178,7 @@ cadrAddCloseBtn.addEventListener(click, () => closePopup(popupNewCardAdd));
 
 zoomCloseBtn.addEventListener(click, () => closePopup(zoomPopup));
 
-//==============================================================
+*///==============================================================
 
 
 //* закрытие любого попапа по клавише "ESC"
@@ -186,7 +188,13 @@ document.addEventListener('keydown', function(evt) {
 });
 */
 
-popups.forEach((popup) => popup.addEventListener(click, closePopupByOverlayOrEscBtn));
+const closePopupByEsc = (e) => {
+  if (e.key === escButton) {
+    closePopup(document.querySelector('.popup_opened'))
+  }
+} 
+
+popups.forEach((popup) => popup.addEventListener(click, closePopupByClick));
 
 formAddCard.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
 
