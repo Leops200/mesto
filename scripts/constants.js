@@ -1,4 +1,3 @@
-/* -- В дальнейшем сюда переместить все константы и переменные, чтобы визуально разгрузить папку "index.js"  */
 
 // Делаем выборку ДОМ элементов:
 //  Глобальные переменные:
@@ -7,13 +6,6 @@
 export const modalIsOpen = document.querySelector('.popup_opened');//открытый попап
 export const popups = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
 export const popupCloseBtnElements = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
-
-//export const profileCloseBtn = document.querySelector('.popup__close-btn_profile');// кнопка закрытия редактора профиля
-
-//export const cadrAddCloseBtn = document.querySelector('.popup__close-btn_card');// кнопка закрытия
-
-//export const zoomCloseBtn = document.querySelector('.popup__close-btn_zoom');// кнопка закрытия
-
 
 export const popuProfileEdit = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
 export const popupNewCardAdd = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
