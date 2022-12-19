@@ -28,10 +28,11 @@ const toggleButtonState = (inputs, btnSave, validationObj) => {
   const { inactiveButtonClass } = validationObj;
   if (checkInputValidity(inputs)) {
     btnSave.classList.add(inactiveButtonClass);
+    btnSave.disabled = 'disabled';
     return;
   }
     btnSave.classList.remove(inactiveButtonClass);//меняем стиль на неактивный
-    btnSave.disabled = 'disabled';// деактивируем саму кнопку
+    btnSave.disabled = '';// деактивируем саму кнопку
 };
 
 // -- функция включения показа ошибки ввода

@@ -101,7 +101,7 @@ const fillingCardSubmitHandler = (evt) => {
     link: formPlaceLinkInput.value
   };
   addNewCard(cardData, cardsContainer);
-  closePopup();
+  closePopup(document.querySelector('.popup_opened'));
   evt.target.reset();
 };
 
@@ -110,7 +110,7 @@ const handleSubmitFormAddCard = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   popuProfileName.textContent = formNameInput.value;
   popuProfileActivity.textContent = formAboutInput.value;
-  closePopup();
+  closePopup(document.querySelector('.popup_opened'));
 };
 
 // Реализуем работу не через "переключатель", а через разные функции:
