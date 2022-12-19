@@ -85,20 +85,20 @@ const addNewCard = (dataCard, cardContainer) => {
 };
 
 //* Функция заполнения полей "инпут"
-const fillingProfile = () =>{
+const fillProfile = () =>{
   formNameInput.value = popuProfileName.textContent;
   formAboutInput.value = popuProfileActivity.textContent;
 };
 
 //*  Функция сохранения (отправки) введённых данных для добавления карточки
-const fillingCardSubmitHandler = (evt) => {
+const handleSubmitFormProfile = (evt) => {
   evt.preventDefault();
   const cardData = {
     name: formPlaceNameInput.value,
     link: formPlaceLinkInput.value
   };
   addNewCard(cardData, cardsContainer);
-  closePopup(document.querySelector('.popup_opened'));
+  closePopup(popupNewCardAdd);
   evt.target.reset();
 };
 
@@ -107,7 +107,7 @@ const handleSubmitFormAddCard = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   popuProfileName.textContent = formNameInput.value;
   popuProfileActivity.textContent = formAboutInput.value;
-  closePopup(document.querySelector('.popup_opened'));
+  closePopup(popuProfileEdit);
 };
 
 // Реализуем работу не через "переключатель", а через разные функции:
@@ -125,7 +125,7 @@ const closePopup = (popup) => {
 //* функция "слушает" конкретную кнопку(методом addEventListener)
 popupProfileButtonOpen.addEventListener(click, () => {
   //console.log('klick');
-  fillingProfile();
+  fillProfile();
   resetErrs(popuProfile, validationObj);
   //enableValidation(validationObj);
   openPopup(popuProfileEdit);
@@ -152,7 +152,7 @@ const closePopupByEsc = (e) => {
 
 popups.forEach((popup) => popup.addEventListener(click, closePopupByClick));
 
-formAddCard.addEventListener('submit', fillingCardSubmitHandler);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "fillingCardSubmitHandler"
+formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "handleSubmitFormProfile"
 
 formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
