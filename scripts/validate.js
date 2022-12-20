@@ -19,15 +19,18 @@ const checkInputValidity = (inputs) => {
 };
 
 // -- Функция управления кнопкой
-const toggleButtonState = (inputs, btnSave, validationObj) => {
-  const { inactiveButtonClass } = validationObj;
+const toggleButtonState = (inputs, btnSave, { inactiveButtonClass }) => {
+  //const { inactiveButtonClass } = validationObj;
+
   if (checkInputValidity(inputs)) {
     btnSave.classList.add(inactiveButtonClass);
     btnSave.disabled = 'disabled';
+    console.log('deactive');
     return;
   }
     btnSave.classList.remove(inactiveButtonClass);//меняем стиль на неактивный
     btnSave.disabled = '';// деактивируем саму кнопку
+    console.log('active');
 };
 
 // -- функция включения показа ошибки ввода
@@ -77,6 +80,13 @@ const setEventListeners = (formSelector, validationObj) => {
     inputSelector.addEventListener('input', () => {
       toggleButtonState(inputs, btnSave, restObj);
       toggleInputError(formSelector, inputSelector, restObj);
-    })
+    });
+  });
+  const { inactiveButtonClass } = validationObj;
+  toggleButtonState(inputs, btnSave, inactiveButtonClass);
+  formSelector.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputs, btnSave, inactiveButtonClass);
+    }, 0)
   })
 };
