@@ -25,12 +25,10 @@ const toggleButtonState = (inputs, btnSave, { inactiveButtonClass }) => {
   if (checkInputValidity(inputs)) {
     btnSave.classList.add(inactiveButtonClass);
     btnSave.disabled = 'disabled';
-    console.log('deactive');
     return;
   }
     btnSave.classList.remove(inactiveButtonClass);//меняем стиль на неактивный
     btnSave.disabled = '';// деактивируем саму кнопку
-    console.log('active');
 };
 
 // -- функция включения показа ошибки ввода
@@ -82,11 +80,9 @@ const setEventListeners = (formSelector, validationObj) => {
       toggleInputError(formSelector, inputSelector, restObj);
     });
   });
-  const { inactiveButtonClass } = validationObj;
-  toggleButtonState(inputs, btnSave, inactiveButtonClass);
   formSelector.addEventListener('reset', () => {
     setTimeout(() => {
-      toggleButtonState(inputs, btnSave, inactiveButtonClass);
+      toggleButtonState(inputs, btnSave, restObj);
     }, 0)
   })
 };

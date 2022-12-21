@@ -74,4 +74,4 @@ export const initialCards = [
 };
 
 export const escButton = 'Escape'; //кнопка ESC
-export const click = 'click'; //клик левой кнопки мыши 
+export const CLICK = 'click'; //клик левой кнопки мыши 

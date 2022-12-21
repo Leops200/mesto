@@ -1,4 +1,10 @@
-
+/*Здравствуйте, Павел! Спасибо за указанные недочёты
+и вообще за качественную проверку. У меня, вроде бы получилось исправить все указанные ошибки, единственное, я попробовал добавить отдельную функцию
+на деактивацию кнопок, но мне показалось это нагромождением кода, и я (почитав
+  наш форум) решил пойти путём, который предложил один из наставников, он(путь)показался мне более элегантным и простым. Проверьте меня, пожалуйста. Надеюсь, я новых ляпов не наделел...
+  
+  Спасибо.
+  С уважением, Леонид.*/
 
 import {popups} from './constants.js';
 import {popuProfileEdit} from './constants.js';
@@ -24,7 +30,7 @@ import {initialCards} from './constants.js';
 import {enableValidation} from './validate.js';
 import {resetErrs} from './validate.js';
 import {escButton} from './constants.js';
-import { click } from './constants.js';
+import { CLICK } from './constants.js';
 
 //========================================================
 
@@ -43,11 +49,11 @@ const generateCard = (dataCard) => {
   nameAdd.textContent = dataCard.name;
   imageAdd.alt = 'картинка ' + dataCard.name;
 
-  imageAdd.addEventListener(click, () => {
+  imageAdd.addEventListener(CLICK, () => {
     handleImageClick(nameAdd, imageAdd)
   });
-  cardLikeBtn.addEventListener(click, handleLikeClick);
-  trashBox.addEventListener(click, deletedCard);
+  cardLikeBtn.addEventListener(CLICK, handleLikeClick);
+  trashBox.addEventListener(CLICK, deletedCard);
   
   return newCard;
 };
@@ -115,17 +121,14 @@ const closePopup = (popup) => {
 
 
 //* функция "слушает" конкретную кнопку(методом addEventListener)
-popupProfileButtonOpen.addEventListener(click, () => {
-  //console.log('klick');
+popupProfileButtonOpen.addEventListener(CLICK, () => {
   fillProfile();
   resetErrs(popuProfile, validationObj);
-  //enableValidation(validationObj);
   openPopup(popuProfileEdit);
 });
 
 //* То-же , что и выше, на кнопку добавления новой карточки
-popupCardButtonOpen.addEventListener(click, () => {
-  //enableValidation(validationObj); 
+popupCardButtonOpen.addEventListener(CLICK, () => {
   openPopup(popupNewCardAdd);
 });
 
@@ -142,7 +145,7 @@ const closePopupByEsc = (e) => {
   }
 } 
 
-popups.forEach((popup) => popup.addEventListener(click, closePopupByClick));
+popups.forEach((popup) => popup.addEventListener(CLICK, closePopupByClick));
 
 formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "handleSubmitFormProfile"
 
