@@ -20,7 +20,6 @@ import {zoomPopup} from './constants.js';
 import {imgPopupZoom} from './constants.js';
 import {imgTitlePopupZoom } from './constants.js';
 import {cardsContainer} from './constants.js';
-import {cardTemplate} from './constants.js';
 import {validationObj} from './constants.js';
 import {initialCards} from './constants.js';
 import {enableValidation} from './validate.js';
@@ -100,29 +99,7 @@ const createCard = (item) =>{
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
 });
-/*
-//*---  Добавляем карточки
-const generateCard = (dataCard) => {
-  const newCard = cardTemplate.cloneNode(true);
-  //const imageAdd = newCard.querySelector('.card__image'); 
-  const nameAdd = newCard.querySelector('.card__title');
-  //--  переменные для тумблера лайков
-  const cardLikeBtn = newCard.querySelector('.card__like-btn');
-  const trashBox = newCard.querySelector('.card__del-btn');
-  
-  //imageAdd.src = dataCard.link;
-  nameAdd.textContent = dataCard.name;
-  //imageAdd.alt = 'картинка ' + dataCard.name;
 
-  //imageAdd.addEventListener(CLICK, () => {
-    //handleImageClick(nameAdd, imageAdd)
-  //});
-  cardLikeBtn.addEventListener(CLICK, handleLikeClick);
-  trashBox.addEventListener(CLICK, deletedCard);
-  
-  return newCard;
-};
-*/
 //Функция добавления лайка
 const handleLikeClick = (evt) => {
   evt.target.classList.toggle('card__like-btn_on');
@@ -208,11 +185,4 @@ formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушае
 
 formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
-//Внимание! инициируем ниже функций!
-/*
-initialCards.forEach((dataCard) => {
-  const newCardAdd = generateCard(dataCard);
-  cardsContainer.append(newCardAdd);
-});
-*/
   console.log('end index js');
