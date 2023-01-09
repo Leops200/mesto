@@ -1,8 +1,4 @@
-/*Здравствуйте, Павел! Спасибо за указанные недочёты
-и вообще за качественную проверку. У меня, вроде бы получилось исправить все указанные ошибки, единственное, я попробовал добавить отдельную функцию
-на деактивацию кнопок, но мне показалось это нагромождением кода, и я (почитав
-  наш форум) решил пойти путём, который предложил один из наставников, он(путь)показался мне более элегантным и простым. Проверьте меня, пожалуйста. Надеюсь, я новых ляпов не наделел...
-  
+/*
   Спасибо.
   С уважением, Леонид.*/
 
@@ -34,37 +30,99 @@ import { CLICK } from './constants.js';
 
 //========================================================
 
+
 enableValidation(validationObj);
 
-//---  Добавляем карточки
+class Card {
+  constructor(initialCards, templateSelector, handleImageClick) {
+    this._name = initialCards.name;
+    this._link = initialCards.link;
+    this._templateSelector = templateSelector;
+    this._handleImageClick = handleImageClick;
+  }
+  //* Слушатель событий на карточке
+  _setEventListeners(imageAdd, cardLikeBtn, trashBtn) {
+    imageAdd.addEventListener(CLICK, () => {
+      this._handleImageClick(this._name, this._link);
+    });
+    cardLikeBtn.addEventListener(CLICK, () => {
+      this._handleLikeClick(cardLikeBtn);
+    });
+    trashBtn.addEventListener(CLICK, () => {
+      this._deletedCard();
+    });
+  }
+  //* Функция получения шаблона
+  _getTemplate() {
+    const cardElement = document
+    .querySelector('#card-template')
+    .content.querySelector('.card')
+    .cloneNode(true);
+    return cardElement;
+  }
+  //* Функция создания карточки
+  generateCard(){
+    this._element = this._getTemplate();
+    const imageAdd = this._element.querySelector('.card__image');
+    const cardLikeBtn = this._element.querySelector('.card__like-btn');
+    const trashBtn = this._element.querySelector('.card__del-btn');
+    const nameAdd = this._element.querySelector('.card__title');
+    nameAdd.textContent = this._name;
+    imageAdd.src = this._link;
+    imageAdd.alt = /*'картинка ' + */this._name;
+    this._setEventListeners(imageAdd, cardLikeBtn, trashBtn);
+    return this._element;
+  }
+  //* Функция удаления карточки
+  _deletedCard() {
+    this._element.remove();
+  }
+  //* Функция переключателя лайка
+  _handleLikeClick(cardLikeBtn) {
+    cardLikeBtn.classList.toggle('card__like-btn_on');
+  }
+};
+
+const handleImageClick = (nameAdd, imageAdd) => {
+  imgPopupZoom.src = imageAdd;
+  imgPopupZoom.alt = nameAdd;
+  imgTitlePopupZoom.textContent = nameAdd;
+  openPopup(zoomPopup);
+}
+
+// Функция создания карты
+const createCard = (item) =>{
+  const card = new Card(item, '.card-template', handleImageClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+initialCards.forEach((item) => {
+  cardsContainer.append(createCard(item));
+});
+/*
+//*---  Добавляем карточки
 const generateCard = (dataCard) => {
   const newCard = cardTemplate.cloneNode(true);
-  const imageAdd = newCard.querySelector('.card__image'); 
+  //const imageAdd = newCard.querySelector('.card__image'); 
   const nameAdd = newCard.querySelector('.card__title');
   //--  переменные для тумблера лайков
   const cardLikeBtn = newCard.querySelector('.card__like-btn');
   const trashBox = newCard.querySelector('.card__del-btn');
   
-  imageAdd.src = dataCard.link;
+  //imageAdd.src = dataCard.link;
   nameAdd.textContent = dataCard.name;
-  imageAdd.alt = 'картинка ' + dataCard.name;
+  //imageAdd.alt = 'картинка ' + dataCard.name;
 
-  imageAdd.addEventListener(CLICK, () => {
-    handleImageClick(nameAdd, imageAdd)
-  });
+  //imageAdd.addEventListener(CLICK, () => {
+    //handleImageClick(nameAdd, imageAdd)
+  //});
   cardLikeBtn.addEventListener(CLICK, handleLikeClick);
   trashBox.addEventListener(CLICK, deletedCard);
   
   return newCard;
 };
-
-const handleImageClick = (nameAdd, imageAdd) => {
-  imgPopupZoom.src = imageAdd.src;
-  imgPopupZoom.alt = nameAdd.textContent;
-  imgTitlePopupZoom.textContent = nameAdd.textContent;
-  openPopup(zoomPopup);
-}
-
+*/
 //Функция добавления лайка
 const handleLikeClick = (evt) => {
   evt.target.classList.toggle('card__like-btn_on');
@@ -74,7 +132,6 @@ const handleLikeClick = (evt) => {
 const deletedCard = (evt) => {
   evt.target.closest('.card').remove();
 };
-
 
 //* Функция добавления карточки через форму ("Submit")
 const addNewCard = (dataCard, cardContainer) => {
@@ -152,9 +209,10 @@ formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушае
 formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
 //Внимание! инициируем ниже функций!
+/*
 initialCards.forEach((dataCard) => {
   const newCardAdd = generateCard(dataCard);
   cardsContainer.append(newCardAdd);
 });
-
-  //console.log('end script');
+*/
+  console.log('end index js');
