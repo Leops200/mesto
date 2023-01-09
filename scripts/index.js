@@ -55,7 +55,7 @@ class Card {
   //* Функция получения шаблона
   _getTemplate() {
     const cardElement = document
-    .querySelector('#card-template')
+    .querySelector(this._templateSelector)
     .content.querySelector('.card')
     .cloneNode(true);
     return cardElement;
@@ -92,7 +92,7 @@ const handleImageClick = (nameAdd, imageAdd) => {
 
 // Функция создания карты
 const createCard = (item) =>{
-  const card = new Card(item, '.card-template', handleImageClick);
+  const card = new Card(item, '#card-template', handleImageClick);
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -134,9 +134,9 @@ const deletedCard = (evt) => {
 };
 
 //* Функция добавления карточки через форму ("Submit")
-const addNewCard = (dataCard, cardContainer) => {
-  const element = generateCard(dataCard);
-  cardContainer.prepend(element);
+const addNewCard = (item) => {
+  //const element = generateCard(dataCard);
+  cardsContainer.prepend(createCard(item));
 };
 
 //* Функция заполнения полей "инпут"
@@ -152,7 +152,7 @@ const handleSubmitFormProfile = (evt) => {
     name: formPlaceNameInput.value,
     link: formPlaceLinkInput.value
   };
-  addNewCard(cardData, cardsContainer);
+  addNewCard(cardData);
   closePopup(popupNewCardAdd);
   evt.target.reset();
 };
