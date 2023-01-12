@@ -27,93 +27,9 @@ import {initialCards} from './constants.js';
 import {escButton} from './constants.js';
 import { CLICK } from './constants.js';
 
-//========================================================
-//enableValidation(validationObj);
+import { Validator } from './Validator.js';
 
-class Validator {
-  constructor(validationObj, form) {
-    this._form = form;
-    this._inputSelector = validationObj.inputSelector;
-    this._inactiveBtnClass = validationObj.inactiveButtonClass;
-    this._inputList = [...this._form.querySelectorAll(this._inputSelector)];
-    this._btnSubmit = this._form.querySelector(validationObj.submitButtonSelector);
-    this._inputErrorClass = validationObj.inputErrorClass;
-    this._errorClass = validationObj.errorClass;
-  }
-  //* настраиваем слушатели
-  _setEventListeners() {
-    this._toggleButtonState();
-    this._inputList.forEach((input) => {
-      input.addEventListener('input', ()=> {
-        this._toggleInputError(input);
-        //console.log(input);
-        this._toggleButtonState();
-      });
-    });
-  this._form.addEventListener('reset', () => {
-    console.log('reset');
-    this._btnSubmit.disabled = true
-  });
-  }
-  //
-  _toggleButtonState() {
-    //console.log(this._inputList);
-    if(this._hasInvalidInput(this._inputList)){
-      this._btnSubmit.disabled = true;
-      this._btnSubmit.classList.add(this._inactiveBtnClass);
-      return;
-    }
-    this._btnSubmit.disabled = false
-    this._btnSubmit.classList.remove(this._inactiveBtnClass);
-  }
-  // 
-  _toggleInputError(input) {
-    //console.log(input);
-    !input.validity.valid
-      ? this._showError(input, input.validationMessage)
-      : this._hideError(input)
-  }
-  _hasInvalidInput() {
-    return this._inputList.some((input) => {
-      return !input.validity.valid;
-    });
-  }
-  // 
-  _hideError(input) {
-    const errorElement = this._form.querySelector(`.${input.id}-error`);
-    console.log(this._inputErrorClass);
-    console.log(this._errorClass);
-    console.log(input);
-    input.classList.remove(this._inputErrorClass);
-    errorElement.classList.remove(this._errorClass);
-    errorElement.textContent = '';
-  }
-  _showError(input, errorMessage) {
-    //console.log(input);
-    const errorElement = this._form.querySelector(`.${input.id}-error`);
-    input.classList.add(this._inputErrorClass);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._errorClass);
-  }
-  // 
-  resetErrs = () => {
-    this._inputList.forEach((input) => {
-      if (input.classList.contains(this._inputErrorClass)) {
-        this._hideError(input);
-      }
-    });
-  }
-  // 
-  handleBtnCheckValidity = () => {
-    console.log('handleBtnCheckValidity');
-    this._toggleButtonState();
-  }
-  //
-  enableValidation() {
-    console.log('enableValidation');
-    this._setEventListeners();
-  }
-};
+//========================================================
 
 // Функция создания новой валидации
 const createValidator = (formSelector) => {
@@ -286,4 +202,4 @@ formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушае
 
 formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
-  console.log('end index js');
+  //console.log('end index js');
