@@ -1,4 +1,4 @@
-
+/*
 // -- Функция включения валидации
 export const enableValidation = (validationObj) => {
   const { formSelector, ...restObj } = validationObj;
@@ -74,6 +74,7 @@ const setEventListeners = (formSelector, validationObj) => {
   const btnSave = formSelector.querySelector(submitButtonSelector);
   const inputs = [...formSelector.querySelectorAll(inputSelector)];
   toggleButtonState(inputs, btnSave, restObj);
+  //console.log(restObj);
   inputs.forEach((inputSelector) => {
     inputSelector.addEventListener('input', () => {
       toggleButtonState(inputs, btnSave, restObj);
@@ -85,4 +86,4 @@ const setEventListeners = (formSelector, validationObj) => {
       toggleButtonState(inputs, btnSave, restObj);
     }, 0)
   })
-};
+};*/
