@@ -28,89 +28,39 @@ import {escButton} from './constants.js';
 import { CLICK } from './constants.js';
 
 import { Validator } from './Validator.js';
+import { Card } from './Card.js';
 
 //========================================================
 
-// Функция создания новой валидации
+//*-- Функция создания новой валидации
 const createValidator = (formSelector) => {
   const validator = new Validator (validationObj, formSelector);
   return validator;
-}
+};
 
-// Валидация формы редактирования профиля
+//*-- Валидация формы редактирования профиля
 const formProfileEditValidator = createValidator(formProfileEdit);
 formProfileEditValidator.enableValidation(formProfileEdit);
 
 
-// Валидация формы добавления карточки
+//*-- Валидация формы добавления карточки
 const addCardFormValidator = createValidator(formAddCard);
 addCardFormValidator.enableValidation(formAddCard);
 
-
-class Card {
-  constructor(initialCards, templateSelector, handleImageClick) {
-    this._name = initialCards.name;
-    this._link = initialCards.link;
-    this._templateSelector = templateSelector;
-    this._handleImageClick = handleImageClick;
-  }
-  //* Слушатель событий на карточке
-  _setEventListeners(imageAdd, cardLikeBtn, trashBtn) {
-    imageAdd.addEventListener(CLICK, () => {
-      this._handleImageClick(this._name, this._link);
-    });
-    cardLikeBtn.addEventListener(CLICK, () => {
-      this._handleLikeClick(cardLikeBtn);
-    });
-    trashBtn.addEventListener(CLICK, () => {
-      this._deletedCard();
-    });
-  }
-  //* Функция получения шаблона
-  _getTemplate() {
-    const cardElement = document
-    .querySelector(this._templateSelector)
-    .content.querySelector('.card')
-    .cloneNode(true);
-    return cardElement;
-  }
-  //* Функция создания карточки
-  generateCard(){
-    this._element = this._getTemplate();
-    const imageAdd = this._element.querySelector('.card__image');
-    const cardLikeBtn = this._element.querySelector('.card__like-btn');
-    const trashBtn = this._element.querySelector('.card__del-btn');
-    const nameAdd = this._element.querySelector('.card__title');
-    nameAdd.textContent = this._name;
-    imageAdd.src = this._link;
-    imageAdd.alt = /*'картинка ' + */this._name;
-    this._setEventListeners(imageAdd, cardLikeBtn, trashBtn);
-    return this._element;
-  }
-  //* Функция удаления карточки
-  _deletedCard() {
-    this._element.remove();
-  }
-  //* Функция переключателя лайка
-  _handleLikeClick(cardLikeBtn) {
-    cardLikeBtn.classList.toggle('card__like-btn_on');
-  }
-};
-
+//*-- Функция открытия попапа с картинкой
 const handleImageClick = (nameAdd, imageAdd) => {
   imgPopupZoom.src = imageAdd;
   imgPopupZoom.alt = nameAdd;
   imgTitlePopupZoom.textContent = nameAdd;
   openPopup(zoomPopup);
-}
+};
 
-// Функция создания карты
+// Функция создания карточки
 const createCard = (item) =>{
   const card = new Card(item, '#card-template', handleImageClick);
   const cardElement = card.generateCard();
   return cardElement;
-}
-
+};
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
 });
@@ -162,11 +112,10 @@ const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
 };
-
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
-}
+};
 
 
 //* функция "слушает" конкретную кнопку(методом addEventListener)
@@ -190,11 +139,12 @@ const closePopupByClick = (e) => {
   }
 };
 
+//* -- Функция закрытия попапа клавишей ESC
 const closePopupByEsc = (e) => {
   if (e.key === escButton) {
     closePopup(document.querySelector('.popup_opened'))
   }
-} 
+};
 
 popups.forEach((popup) => popup.addEventListener(CLICK, closePopupByClick));
 
