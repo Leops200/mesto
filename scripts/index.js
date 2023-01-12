@@ -17,6 +17,7 @@ import{
   zoomPopup,
   imgPopupZoom,
   imgTitlePopupZoom,
+  // - элемент для карточек
   cardsContainer,
   // - кнопки
   escButton,
@@ -88,7 +89,7 @@ const fillProfile = () =>{
   formAboutInput.value = popuProfileActivity.textContent;
 };
 
-//*  Функция сохранения (отправки) введённых данных для добавления карточки
+//*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
 const handleSubmitFormProfile = (evt) => {
   evt.preventDefault();
   const cardData = {
@@ -100,7 +101,7 @@ const handleSubmitFormProfile = (evt) => {
   evt.target.reset();
 };
 
-//*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
+//*  Функция сохранения (отправки) введённых данных для добавления карточки
 const handleSubmitFormAddCard = (evt) => {
   evt.preventDefault();//* метод присваивает выбранные значения
   popuProfileName.textContent = formNameInput.value;
