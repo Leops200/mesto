@@ -28,14 +28,14 @@ import {initialCards} from './constants.js';
 //*--
 import {validationObj} from './constants.js';
 //*--
-import { Validator } from './Validator.js';
+import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 
 //========================================================
 
 //*-- Функция создания новой валидации
 const createValidator = (formSelector) => {
-  const validator = new Validator (validationObj, formSelector);
+  const validator = new FormValidator (validationObj, formSelector);
   return validator;
 };
 
