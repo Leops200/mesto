@@ -19,14 +19,13 @@ export class FormValidator {
       });
     });
   this._form.addEventListener('reset', () => {
-    console.log('reset');
+    //console.log('reset'); // ресет пока не работает
     this._btnSubmit.disabled = true
   });
   };
 
   // Устанавливаем состояние кнопки отправки
   _toggleButtonState() {
-    //console.log(this._inputList);
     if(this._hasInvalidInput(this._inputList)){
       this._btnSubmit.disabled = true;
       this._btnSubmit.classList.add(this._inactiveBtnClass);
@@ -38,7 +37,6 @@ export class FormValidator {
 
   // Переключатель показа/скрытия несоответствия ввода
   _toggleInputError(input) {
-    //console.log(input);
     !input.validity.valid
       ? this._showError(input, input.validationMessage)
       : this._hideError(input)
@@ -61,7 +59,6 @@ export class FormValidator {
 
   // Отображение ошибки ввода
   _showError(input, errorMessage) {
-    //console.log(input);
     const errorElement = this._form.querySelector(`.${input.id}-error`);
     input.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;

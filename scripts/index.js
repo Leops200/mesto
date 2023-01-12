@@ -1,3 +1,8 @@
+/*
+Здравствуйте, Станислав! 
+Спасибо Вам за Вашу работу. Отдельная благодарность за пояснения к замечаниям. Про неиспользуемые функции я помнил, но поторопился отправить работу на проверку и вылетело из головы, извините. А сейчас, вроде, всё поправил.
+*/
+
 //*-- Импорты:
 import{
   // - элементы ДОМ
@@ -42,12 +47,12 @@ const createValidator = (formSelector) => {
 
 //*-- Валидация формы редактирования профиля
 const formProfileEditValidator = createValidator(formProfileEdit);
-formProfileEditValidator.enableValidation(formProfileEdit);
+formProfileEditValidator.enableValidation();
 
 
 //*-- Валидация формы добавления карточки
 const addCardFormValidator = createValidator(formAddCard);
-addCardFormValidator.enableValidation(formAddCard);
+addCardFormValidator.enableValidation();
 
 //*-- Функция открытия попапа с картинкой
 const handleImageClick = (nameAdd, imageAdd) => {
@@ -66,16 +71,6 @@ const createCard = (item) =>{
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
 });
-
-//Функция добавления лайка
-const handleLikeClick = (evt) => {
-  evt.target.classList.toggle('card__like-btn_on');
-};
-
-// Функция "карточка в мусор"
-const deletedCard = (evt) => {
-  evt.target.closest('.card').remove();
-};
 
 //* Функция добавления карточки через форму ("Submit")
 const addNewCard = (item) => {

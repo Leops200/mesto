@@ -41,6 +41,7 @@ export class Card {
   //* Функция удаления карточки
   _deletedCard() {
     this._element.remove();
+    this._element = null;// спасибо, буду иметь в виду(в теории, вроде, так не делали)
   }
   //* Функция переключателя лайка
   _handleLikeClick(cardLikeBtn) {
