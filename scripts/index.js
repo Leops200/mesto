@@ -1,32 +1,33 @@
-/*
-  Спасибо.
-  С уважением, Леонид.*/
+//*-- Импорты:
+import{
+  // - элементы ДОМ
+  popups,
+  popuProfileEdit,
+  popupNewCardAdd,
+  popuProfileName,
+  popuProfileActivity,
+  popupProfileButtonOpen,
+  popupCardButtonOpen,
+  formProfileEdit,
+  formNameInput,
+  formAboutInput,
+  formAddCard,
+  formPlaceNameInput,
+  formPlaceLinkInput,
+  zoomPopup,
+  imgPopupZoom,
+  imgTitlePopupZoom,
+  cardsContainer,
+  // - кнопки
+  escButton,
+  CLICK
+} from './constants.js';
 
-import {popups} from './constants.js';
-import {popuProfileEdit} from './constants.js';
-import {popupNewCardAdd} from './constants.js';
-import {popuProfile} from './constants.js';
-import {popuProfileName} from './constants.js';
-import {popuProfileActivity} from './constants.js';
-import {popupProfileButtonOpen} from './constants.js';
-import {popupCardButtonOpen} from './constants.js';
-import {formProfileEdit} from './constants.js';
-import {formNameInput} from './constants.js';
-import {formAboutInput} from './constants.js';
-import {formAddCard} from './constants.js';
-import {formPlaceNameInput} from './constants.js';
-import {formPlaceLinkInput} from './constants.js';
-import {zoomPopup} from './constants.js';
-import {imgPopupZoom} from './constants.js';
-import {imgTitlePopupZoom } from './constants.js';
-import {cardsContainer} from './constants.js';
-import {validationObj} from './constants.js';
+//*--
 import {initialCards} from './constants.js';
-//import {enableValidation} from './validate.js';
-//import {resetErrs} from './validate.js';
-import {escButton} from './constants.js';
-import { CLICK } from './constants.js';
-
+//*--
+import {validationObj} from './constants.js';
+//*--
 import { Validator } from './Validator.js';
 import { Card } from './Card.js';
 

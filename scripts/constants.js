@@ -3,9 +3,7 @@
 //  Глобальные переменные:
 //  для работы с попАп:
 
-export const modalIsOpen = document.querySelector('.popup_opened');//открытый попап
 export const popups = document.querySelectorAll('.popup');//* здесь назначили переменную, которая работает со всеми блоками '.popup'
-export const popupCloseBtnElements = document.querySelectorAll('.popup__close-btn');//* здесь назначили все кнопки закрытия попАпов
 
 export const popuProfileEdit = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
 export const popupNewCardAdd = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
@@ -34,7 +32,7 @@ export const imgTitlePopupZoom = zoomPopup.querySelector('.popup__img-title');//
 
 //--  Переменные для Card и Template
 export const cardsContainer = document.querySelector('.elements');
-export const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
+//export const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 export const initialCards = [
 
