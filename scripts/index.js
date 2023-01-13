@@ -114,20 +114,25 @@ const closePopup = (popup) => {
   document.removeEventListener('keydown', closePopupByEsc);
 };
 
-
-//* функция "слушает" конкретную кнопку(методом addEventListener)
-popupProfileButtonOpen.addEventListener(CLICK, () => {
+// Функция открытия попапа редактора профиля
+const openPopupProfile = () => {
   fillProfile();
   //resetErrs(popuProfile, validationObj);
   formProfileEditValidator.resetErrs();
   formProfileEditValidator.handleBtnCheckValidity();
   openPopup(popuProfileEdit);
-});
+};
 
-//* То-же , что и выше, на кнопку добавления новой карточки
-popupCardButtonOpen.addEventListener(CLICK, () => {
+// Функция открытия попапа добавления карточки
+const openPopupAddNewCard = () =>{
   openPopup(popupNewCardAdd);
-});
+};
+
+// Слушатель кнопки редактора профиля
+popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
+
+// Слушатель кнопки новой карточки
+popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
 
 //* -- Функция закрытия попапа при клике в крестик или оверлей
 const closePopupByClick = (e) => {
