@@ -28,16 +28,17 @@ import{
   // - кнопки
   escButton,
   CLICK
-} from './constants.js';
+} from '../utils/constants.js';
 
 //*--
-import {initialCards} from './constants.js';
+//import {initialCards} from '../utils/constants.js';
 //*--
-import {validationObj} from './constants.js';
+import {validationObj} from '../utils/constants.js';
 //*--
-import { FormValidator } from './FormValidator.js';
-import { Card } from './Card.js';
-
+import { FormValidator } from '../components/FormValidator.js';
+//import { Card } from '../components/Card.js';
+//
+import {createCard} from '../utils/utils.js';
 //========================================================
 
 //*-- Функция создания новой валидации
@@ -56,14 +57,14 @@ const addCardFormValidator = createValidator(formAddCard);
 addCardFormValidator.enableValidation();
 
 //*-- Функция открытия попапа с картинкой
-const handleImageClick = (nameAdd, imageAdd) => {
+export const handleImageClick = (nameAdd, imageAdd) => {
   imgPopupZoom.src = imageAdd;
   imgPopupZoom.alt = nameAdd;
   imgTitlePopupZoom.textContent = nameAdd;
   openPopup(zoomPopup);
 };
 
-// Функция создания карточки
+/*/ Функция создания карточки
 const createCard = (item) =>{
   const card = new Card(item, '#card-template', handleImageClick);
   const cardElement = card.generateCard();
@@ -71,7 +72,7 @@ const createCard = (item) =>{
 };
 initialCards.forEach((item) => {
   cardsContainer.append(createCard(item));
-});
+});*/
 
 //* Функция добавления карточки через форму ("Submit")
 const addNewCard = (item) => {
