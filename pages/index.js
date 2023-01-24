@@ -30,16 +30,50 @@ import{
   CLICK
 } from '../utils/constants.js';
 
+import Section from '../components/section.js';
 //*--
-//import {initialCards} from '../utils/constants.js';
+import {initialCards} from '../utils/constants.js';
 //*--
 import {validationObj} from '../utils/constants.js';
 //*--
 import { FormValidator } from '../components/FormValidator.js';
-//import { Card } from '../components/Card.js';
+import { Card } from '../components/Card.js';
 //
-import {createCard} from '../utils/utils.js';
+//import {createCard} from '../utils/utils.js';
+
 //========================================================
+
+const cardAdd = new Section({
+  items: initialCards,
+  renderer: (item) =>{
+    const card = new Card(item, '#card-template', handleImageClick);
+
+      const cardElement = card.generateCard();
+      cardAdd.addItem(cardElement);
+  },
+}, '.elements');
+
+const newCardAdd = new Section({
+  items: undefined,
+  renderer: (item) =>{
+    const card = new Card(item, '#card-template', handleImageClick);
+
+    const cardElement = card.generateCard();
+    cardAdd.addNewCard(cardElement);
+  }
+})
+//*/ Функция создания карточки
+const createCard = (item) =>{
+  const card = new Card(item, '#card-template', handleImageClick);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
+//* Функция добавления карточки через форму ("Submit")
+const addNewCard = (item) => {
+  //const element = generateCard(dataCard);
+  cardsContainer.prepend(createCard(item));
+};
 
 //*-- Функция создания новой валидации
 const createValidator = (formSelector) => {
@@ -64,22 +98,6 @@ export const handleImageClick = (nameAdd, imageAdd) => {
   openPopup(zoomPopup);
 };
 
-/*/ Функция создания карточки
-const createCard = (item) =>{
-  const card = new Card(item, '#card-template', handleImageClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-};
-initialCards.forEach((item) => {
-  cardsContainer.append(createCard(item));
-});*/
-
-//* Функция добавления карточки через форму ("Submit")
-const addNewCard = (item) => {
-  //const element = generateCard(dataCard);
-  cardsContainer.prepend(createCard(item));
-};
-
 //* Функция заполнения полей "инпут"
 const fillProfile = () =>{
   formNameInput.value = popuProfileName.textContent;
@@ -93,7 +111,7 @@ const handleSubmitFormProfile = (evt) => {
     name: formPlaceNameInput.value,
     link: formPlaceLinkInput.value
   };
-  addNewCard(cardData);
+  newCardAdd.renderNewCard(cardData);
   closePopup(popupNewCardAdd);
   evt.target.reset();
 };
@@ -157,3 +175,5 @@ formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушае
 formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
 
   //console.log('end index js');
+
+cardAdd.renderItems();
