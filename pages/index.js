@@ -38,6 +38,7 @@ import {validationObj} from '../utils/constants.js';
 //*--
 import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
+import Popup from '../components/Popup.js';
 //
 //import {createCard} from '../utils/utils.js';
 
@@ -54,26 +55,46 @@ const cardAdd = new Section({
 }, '.elements');
 
 const newCardAdd = new Section({
-  items: undefined,
   renderer: (item) =>{
     const card = new Card(item, '#card-template', handleImageClick);
-
+    console.log(card);
     const cardElement = card.generateCard();
     cardAdd.addNewCard(cardElement);
+    //newCardAdd.setEventListeners();
   }
 })
-//*/ Функция создания карточки
+
+// Отрисовываем любой попап
+const newPopup = new Section({
+  renderer: (popup) =>{
+    const nPopup = new Popup(popup);
+    nPopup.setEventListeners(); 
+    const elementPopup = nPopup.open();
+    return elementPopup;
+  }
+})
+
+//newPopup.setEventListeners();
+
+//newCardAdd.setEventListeners();
+
+/*const openPopup = (popup) => {
+  const newPopup = new Popup(popup);
+  const elementPopup = newPopup.open();
+  return elementPopup;
+}*/
+/*/ Функция создания карточки
 const createCard = (item) =>{
   const card = new Card(item, '#card-template', handleImageClick);
   const cardElement = card.generateCard();
   return cardElement;
-};
+};*/
 
-//* Функция добавления карточки через форму ("Submit")
+/* Функция добавления карточки через форму ("Submit")
 const addNewCard = (item) => {
   //const element = generateCard(dataCard);
   cardsContainer.prepend(createCard(item));
-};
+};*/
 
 //*-- Функция создания новой валидации
 const createValidator = (formSelector) => {
@@ -95,7 +116,8 @@ export const handleImageClick = (nameAdd, imageAdd) => {
   imgPopupZoom.src = imageAdd;
   imgPopupZoom.alt = nameAdd;
   imgTitlePopupZoom.textContent = nameAdd;
-  openPopup(zoomPopup);
+  //openPopup(zoomPopup);
+  newPopup.renderer(zoomPopup);
 };
 
 //* Функция заполнения полей "инпут"
@@ -111,7 +133,7 @@ const handleSubmitFormProfile = (evt) => {
     name: formPlaceNameInput.value,
     link: formPlaceLinkInput.value
   };
-  newCardAdd.renderNewCard(cardData);
+  newCardAdd.renderer(cardData);
   closePopup(popupNewCardAdd);
   evt.target.reset();
 };
@@ -124,15 +146,16 @@ const handleSubmitFormAddCard = (evt) => {
   closePopup(popuProfileEdit);
 };
 
-// Реализуем работу не через "переключатель", а через разные функции:
+/*/ Реализуем работу не через "переключатель", а через разные функции:
 const openPopup = (popup) => {
+  console.log(popup);
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
 };
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
-};
+};*/
 
 // Функция открытия попапа редактора профиля
 const openPopupProfile = () => {
@@ -140,12 +163,12 @@ const openPopupProfile = () => {
   //resetErrs(popuProfile, validationObj);
   formProfileEditValidator.resetErrs();
   formProfileEditValidator.handleBtnCheckValidity();
-  openPopup(popuProfileEdit);
+  newPopup.renderer(popuProfileEdit);
 };
 
 // Функция открытия попапа добавления карточки
 const openPopupAddNewCard = () =>{
-  openPopup(popupNewCardAdd);
+  newPopup.renderer(popupNewCardAdd);
 };
 
 // Слушатель кнопки редактора профиля
@@ -154,21 +177,24 @@ popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
 // Слушатель кнопки новой карточки
 popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
 
-//* -- Функция закрытия попапа при клике в крестик или оверлей
+/* -- Функция закрытия попапа при клике в крестик или оверлей
 const closePopupByClick = (e) => {
   if (e.target === e.currentTarget || e.target.classList.contains('popup__close-btn')) {
     closePopup(e.currentTarget);
+    //close();
   }
 };
 
 //* -- Функция закрытия попапа клавишей ESC
 const closePopupByEsc = (e) => {
   if (e.key === escButton) {
-    closePopup(document.querySelector('.popup_opened'))
+    closePopup(document.querySelector('.popup_opened'));
+    //close();
   }
-};
+};*/
 
-popups.forEach((popup) => popup.addEventListener(CLICK, closePopupByClick));
+//здесь был слушатель, на все кнопки сразу, теперь он в таком виде уже не нужен, так как мы добавляем один слушатель для всего класса
+//popups.forEach((popup) => popup.addEventListener(CLICK, closePopupByClick));
 
 formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "handleSubmitFormProfile"
 

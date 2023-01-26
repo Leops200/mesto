@@ -21,7 +21,7 @@ constructor({items, renderer}, containerSelector){
     });
   }
 
-  renderNewCard(item) {
+  renderer(item) {
     this._renderer(item);
   }
 }
