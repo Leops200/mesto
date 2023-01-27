@@ -39,6 +39,7 @@ import {validationObj} from '../utils/constants.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
 import Popup from '../components/Popup.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 //
 //import {createCard} from '../utils/utils.js';
 
@@ -74,9 +75,8 @@ const newPopup = new Section({
   }
 })
 
-//newPopup.setEventListeners();
+//const newPopupWithImage = new PopupWithImage(zoomPopup);
 
-//newCardAdd.setEventListeners();
 
 /*const openPopup = (popup) => {
   const newPopup = new Popup(popup);
@@ -116,8 +116,9 @@ export const handleImageClick = (nameAdd, imageAdd) => {
   imgPopupZoom.src = imageAdd;
   imgPopupZoom.alt = nameAdd;
   imgTitlePopupZoom.textContent = nameAdd;
-  //openPopup(zoomPopup);
-  newPopup.renderer(zoomPopup);
+  //openPopup(zoomPopup); //так окно открывалось до классов
+  //newPopup.renderer(zoomPopup); // так открывается через Section
+  newPopupWithImage.open(zoomPopup); // так через дочерний класс
 };
 
 //* Функция заполнения полей "инпут"
