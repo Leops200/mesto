@@ -40,6 +40,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
 import Popup from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 //
 //import {createCard} from '../utils/utils.js';
 
@@ -55,17 +56,16 @@ const cardAdd = new Section({
   },
 }, '.elements');
 
-const newCardAdd = new Section({
+/*const newCardAdd = new Section({
   renderer: (item) =>{
     const card = new Card(item, '#card-template', handleImageClick);
-    console.log(card);
     const cardElement = card.generateCard();
     cardAdd.addNewCard(cardElement);
     //newCardAdd.setEventListeners();
   }
-})
+})*/
 
-// Отрисовываем любой попап
+/*/ Отрисовываем любой попап
 const newPopup = new Section({
   renderer: (popup) =>{
     const nPopup = new Popup(popup);
@@ -73,10 +73,14 @@ const newPopup = new Section({
     const elementPopup = nPopup.open();
     return elementPopup;
   }
-})
+})*/
 
-//const newPopupWithImage = new PopupWithImage(zoomPopup);
+const newPopupWithImage = new PopupWithImage('.popup_zoom');
+newPopupWithImage.setEventListeners();
 
+const profileEdit = new PopupWithForm('.popup_profile'/*,handleEditFormProfile*/);
+
+const handleAddCard = new PopupWithForm('.popup_new-card');
 
 /*const openPopup = (popup) => {
   const newPopup = new Popup(popup);
@@ -113,12 +117,12 @@ addCardFormValidator.enableValidation();
 
 //*-- Функция открытия попапа с картинкой
 export const handleImageClick = (nameAdd, imageAdd) => {
-  imgPopupZoom.src = imageAdd;
-  imgPopupZoom.alt = nameAdd;
-  imgTitlePopupZoom.textContent = nameAdd;
+  /*/imgPopupZoom.src = imageAdd;
+  //imgPopupZoom.alt = nameAdd;
+  //imgTitlePopupZoom.textContent = nameAdd;
   //openPopup(zoomPopup); //так окно открывалось до классов
-  //newPopup.renderer(zoomPopup); // так открывается через Section
-  newPopupWithImage.open(zoomPopup); // так через дочерний класс
+  //newPopup.renderer(zoomPopup); // так открывается через Section*/
+  newPopupWithImage.open(nameAdd, imageAdd); // так через дочерний класс
 };
 
 //* Функция заполнения полей "инпут"
@@ -128,15 +132,17 @@ const fillProfile = () =>{
 };
 
 //*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
-const handleSubmitFormProfile = (evt) => {
+function handleEditFormProfile(evt) {
   evt.preventDefault();
+  popuProfileEdit.close();
+  /*evt.preventDefault();
   const cardData = {
     name: formPlaceNameInput.value,
     link: formPlaceLinkInput.value
   };
   newCardAdd.renderer(cardData);
   closePopup(popupNewCardAdd);
-  evt.target.reset();
+  evt.target.reset();*/
 };
 
 //*  Функция сохранения (отправки) введённых данных для добавления карточки
@@ -160,23 +166,25 @@ const closePopup = (popup) => {
 
 // Функция открытия попапа редактора профиля
 const openPopupProfile = () => {
-  fillProfile();
+  profileEdit.open();
+  /*fillProfile();
   //resetErrs(popuProfile, validationObj);
   formProfileEditValidator.resetErrs();
   formProfileEditValidator.handleBtnCheckValidity();
-  newPopup.renderer(popuProfileEdit);
+  newPopup.renderer(popuProfileEdit);*/
 };
 
 // Функция открытия попапа добавления карточки
 const openPopupAddNewCard = () =>{
-  newPopup.renderer(popupNewCardAdd);
+  handleAddCard.open();
+  //newPopup.renderer(popupNewCardAdd);
 };
 
 // Слушатель кнопки редактора профиля
-popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
+//popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
 
 // Слушатель кнопки новой карточки
-popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
+//popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
 
 /* -- Функция закрытия попапа при клике в крестик или оверлей
 const closePopupByClick = (e) => {
@@ -197,10 +205,12 @@ const closePopupByEsc = (e) => {
 //здесь был слушатель, на все кнопки сразу, теперь он в таком виде уже не нужен, так как мы добавляем один слушатель для всего класса
 //popups.forEach((popup) => popup.addEventListener(CLICK, closePopupByClick));
 
-formAddCard.addEventListener('submit', handleSubmitFormProfile);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "handleSubmitFormProfile"
+// Назначаем слушатель на кнопку редактора профиля
+popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
 
-formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
-
-  //console.log('end index js');
+// Назначаем слушатель на кнопку добавления карточки
+popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
 
 cardAdd.renderItems();
+
+  //console.log('end index js');

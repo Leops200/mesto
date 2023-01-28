@@ -11,7 +11,7 @@ export class Card {
       this._handleImageClick(this._name, this._link);
     });
     this._cardLikeBtn.addEventListener('click', () => {
-      this._handleLikeClick(this._cardLikeBtn);
+      this._handleLikeClick();
     });
     this._trashBtn.addEventListener('click', () => {
       this._deletedCard();
@@ -35,7 +35,7 @@ export class Card {
 
     this._nameAdd.textContent = this._name;
     this._imageAdd.src = this._link;
-    this._imageAdd.alt = 'картинка ' + this._name;
+    this._imageAdd.alt = /*'картинка ' + */this._name;
 
     this._setEventListeners();
 
