@@ -6,14 +6,14 @@ export class Card {
     this._handleImageClick = handleImageClick;
   }
   //* Слушатель событий на карточке
-  _setEventListeners(imageAdd, cardLikeBtn, trashBtn) {
-    imageAdd.addEventListener('click', () => {
+  _setEventListeners = () => {
+    this._imageAdd.addEventListener('click', () => {
       this._handleImageClick(this._name, this._link);
     });
-    cardLikeBtn.addEventListener('click', () => {
-      this._handleLikeClick(cardLikeBtn);
+    this._cardLikeBtn.addEventListener('click', () => {
+      this._handleLikeClick();
     });
-    trashBtn.addEventListener('click', () => {
+    this._trashBtn.addEventListener('click', () => {
       this._deletedCard();
     });
   }
@@ -28,14 +28,17 @@ export class Card {
   //* Функция создания карточки
   generateCard(){
     this._element = this._getTemplate();
-    const imageAdd = this._element.querySelector('.card__image');
-    const cardLikeBtn = this._element.querySelector('.card__like-btn');
-    const trashBtn = this._element.querySelector('.card__del-btn');
-    const nameAdd = this._element.querySelector('.card__title');
-    nameAdd.textContent = this._name;
-    imageAdd.src = this._link;
-    imageAdd.alt = /*'картинка ' + */this._name;
-    this._setEventListeners(imageAdd, cardLikeBtn, trashBtn);
+    this._imageAdd = this._element.querySelector('.card__image');
+    this._cardLikeBtn = this._element.querySelector('.card__like-btn');
+    this._trashBtn = this._element.querySelector('.card__del-btn');
+    this._nameAdd = this._element.querySelector('.card__title');
+
+    this._nameAdd.textContent = this._name;
+    this._imageAdd.src = this._link;
+    this._imageAdd.alt = /*'картинка ' + */this._name;
+
+    this._setEventListeners();
+
     return this._element;
   }
   //* Функция удаления карточки
@@ -44,7 +47,7 @@ export class Card {
     this._element = null;// спасибо, буду иметь в виду(в теории, вроде, так не делали)
   }
   //* Функция переключателя лайка
-  _handleLikeClick(cardLikeBtn) {
-    cardLikeBtn.classList.toggle('card__like-btn_on');
+  _handleLikeClick() {
+    this._cardLikeBtn.classList.toggle('card__like-btn_on');
   }
 };
