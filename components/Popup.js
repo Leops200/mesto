@@ -2,18 +2,17 @@ export const escButton = 'Escape'; //кнопка ESC
 export default class Popup {
   constructor (popupSelector) {
     this._selector = document.querySelector(popupSelector);
+    this._popup = popupSelector;
   }
 
   open(){
     this._selector.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
-    console.log('open in class');
   };
 
   close(){
     this._selector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
-    console.log('close in class');
   };
 
   setEventListeners () {

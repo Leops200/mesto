@@ -31,7 +31,7 @@ export const imgPopupZoom = zoomPopup.querySelector('.popup__img');//* пере�
 export const imgTitlePopupZoom = zoomPopup.querySelector('.popup__img-title');//* переменная для хранения названия изображения
 
 //--  Переменные для Card и Template
-export const cardsContainer = document.querySelector('.elements');
+export const cardsContainer = '.elements';
 //export const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 export const initialCards = [
