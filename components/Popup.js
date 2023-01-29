@@ -2,7 +2,6 @@ export const escButton = 'Escape'; //кнопка ESC
 export default class Popup {
   constructor (popupSelector) {
     this._selector = document.querySelector(popupSelector);
-    this._popup = popupSelector;
   }
 
   open(){

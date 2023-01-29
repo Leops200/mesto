@@ -118,7 +118,7 @@ popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
 popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
 
 cardAdd.renderItems();
-
+/*
 const debuging = (e) => {
   e.preventDefault();
   const cardData = {
@@ -134,4 +134,4 @@ const debuging = (e) => {
   //console.log('end index js');
   formAddCard.addEventListener('submit', debuging);//* слушаем кнопку "создать" в попапе редактора профиля. При нажатии (событие'submit')выполнить функцию "handleSubmitFormProfile"
 
-  formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"
+  formProfileEdit.addEventListener('submit', handleSubmitFormAddCard);//* слушаем кнопку "сохранить" в попапе редактора профиля. При нажатии ('submit')выполнить функцию "formProfileSubmitHandler"*/
