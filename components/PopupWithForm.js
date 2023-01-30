@@ -17,18 +17,16 @@ export class PopupWithForm extends Popup{
     this._inputs.forEach(element => {
       const name = element.name;
       const value = element.value;
-      
 
       values[name] = value;
     });
     return values;
   };
+
 // обработка на крестик и сабмит формы
   setEventListeners(){
     super.setEventListeners();
-
-    this._form.addEventListener('submit', (e) =>{
-    //e.preventDefault();//
+      this._form.addEventListener('submit', (e) =>{
       this._handleSubmit(e, this._getInputValues());
     });
   };
