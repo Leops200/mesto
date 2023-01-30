@@ -69,34 +69,31 @@ export const handleImageClick = (nameAdd, imageAdd) => {
   newPopupWithImage.open(nameAdd, imageAdd);
 };
 
-/* Функция заполнения полей "инпут"
-const fillProfile = () =>{
-  formNameInput.value = popuProfileName.textContent;
-  formAboutInput.value = popuProfileActivity.textContent;
-};*/
-
-//*  функция сохранения (отправки) введённых данных для сохранения новых значений в попапе редактора профиля
+//*  функция сохранения (отправки) введённых данных новая карточка
 function handleSubmitFormAddCard(e, data) {
   e.preventDefault();
   newCardAdd.renderer(data);
-
+  console.log('data');
+  console.log(data);
+  checkValidNewCard.resetErrs();
+  handleAddCard.close();
 };
 
-//*  Функция сохранения (отправки) введённых данных редактора профиля
+//*  Функция сохранения (отправки) введённых данных профиля
 function handleEditFormProfile (e, values) {
-  e.preventDefault();//* метод присваивает выбранные значения
+  e.preventDefault();//* метод отменяет действие по-умолчанию
   userInfo.setUserInfo(values.name, values.activity);
-  console.log('!????!!');
+  console.log(values.name, values.activity);
   profileEdit.close();
 };
 
 // Функция открытия попапа редактора профиля
 const openPopupProfile = () => {
   console.log('//ниже открываем "profileEdit"');
-  const {name, activity} = userInfo.getUserInfo();
-  profileEdit.setFormVal({name, activity});
+  const {name, about} = userInfo.getUserInfo();
+  profileEdit.setFormVal({name, about});
   console.log(name);
-  console.log(activity);
+  console.log(about);
   checkValidProfile.resetErrs();
 
   profileEdit.open();

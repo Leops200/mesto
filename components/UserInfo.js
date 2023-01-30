@@ -8,13 +8,13 @@ export class UserInfo{
   getUserInfo() {
     return {
       name: this._name.textContent,
-      activity: this._activity.textContent
+      about: this._activity.textContent
     };
   };
 
   // 
-  setUserInfo(name, activity) {
+  setUserInfo(name, about) {
     this._name.textContent = name;
-    this._activity.textContent = activity;
+    this._activity.textContent = about;
   };
 };

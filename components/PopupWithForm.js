@@ -26,8 +26,10 @@ export class PopupWithForm extends Popup{
 // обработка на крестик и сабмит формы
   setEventListeners(){
     super.setEventListeners();
+
     this._form.addEventListener('submit', (e) =>{
-      this._handleFormSubmit(e, this._getInputValues());
+    //e.preventDefault();//
+      this._handleSubmit(e, this._getInputValues());
     });
   };
 
