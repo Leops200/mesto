@@ -13,7 +13,7 @@
 
 **GitHub**
 
-* [Ссылка на проект в GitHub](https://leops200.github.io/mesto/)
+* [Ссылка на проект в GitHub временно НЕ работает](https://leops200.github.io/mesto/)
 
 
 

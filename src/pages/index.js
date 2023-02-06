@@ -1,3 +1,20 @@
+import './index.css';
+
+const ulanude = new URL('../images/ulan_ude.jpg', import.meta.url);
+import elbrus from '../images/elbrus.png';
+import dombay from '../images/dombay.png';
+import sulak from '../images/sulak.jpg';
+import baykal from '../images/baykal.jpg';
+import sudak from '../images/sudak.jpg';
+
+const initialCards = [
+  {name: 'Улан-Удэ', link: ulanude},
+  {name: 'Гора_Эльбрус', link: elbrus},
+  {name: 'Домбай', link: dombay},
+  {name: 'Сулак', link: sulak},
+  {name: 'Байкал', link: baykal},
+  {name: 'Судак', link: sudak}
+];
 //*-- Импорты:
 import{
   // - элементы ДОМ
@@ -11,13 +28,13 @@ import{
   cardsContainer,
   // - кнопки
   CLICK
-} from '../utils/constants.js';
+} from '../../utils/constants.js';
 
 import Section from '../components/Section.js';
 //*--
-import {initialCards} from '../utils/constants.js';
+//import {initialCards} from '../../utils/constants.js';
 //*--
-import {validationObj} from '../utils/constants.js';
+import {validationObj} from '../../utils/constants.js';
 //*--
 import { FormValidator } from '../components/FormValidator.js';
 import { Card } from '../components/Card.js';
