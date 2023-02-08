@@ -22,8 +22,6 @@ import{
   popupCardButtonOpen,
   formProfileEdit,
   formAddCard,
-  formPlaceNameInput,
-  formPlaceLinkInput,
   // - элемент для карточек
   cardsContainer,
   // - кнопки
@@ -47,22 +45,20 @@ import { UserInfo } from '../components/UserInfo.js';
 
 //========================================================
 
+const createCard = (item) => {
+  const card = new Card(item, '#card-template', handleImageClick);
+  const cardElement = card.generateCard();
+
+  return cardElement
+}
+
 const cardAdd = new Section({
-  items: initialCards,
+  items: initialCards.reverse(),
   renderer: (item) =>{
-    const card = new Card(item, '#card-template', handleImageClick);
-    const cardElement = card.generateCard();
+    const cardElement = createCard(item)
     cardAdd.addItem(cardElement);
   },
 }, cardsContainer);
-
-const newCardAdd = new Section({
-  renderer: (item) =>{
-    const card = new Card(item, '#card-template', handleImageClick);
-    const cardElement = card.generateCard();
-    cardAdd.addNewCard(cardElement);
-  }
-});
 
 const checkValidNewCard = new FormValidator (validationObj, formAddCard);
 checkValidNewCard.enableValidation();
@@ -71,7 +67,7 @@ handleAddCard.setEventListeners();
 
 const checkValidProfile = new FormValidator (validationObj, formProfileEdit);
 checkValidProfile.enableValidation();
-const profileEdit = new PopupWithForm('.popup_profile',(handleEditFormProfile));
+const profileEdit = new PopupWithForm('.popup_profile', handleEditFormProfile);
 profileEdit.setEventListeners();
 const userInfo = new UserInfo({nameSelector: '.profile__user-name', activSelector: '.profile__user-activity'});
 
@@ -85,14 +81,14 @@ export const handleImageClick = (nameAdd, imageAdd) => {
 };
 
 //*  функция сохранения (отправки) введённых данных новая карточка
-function handleSubmitFormAddCard(e, item) {
+function handleSubmitFormAddCard(e, values) {
   e.preventDefault();
-   item = {
-    name: formPlaceNameInput.value,
-    link: formPlaceLinkInput.value
+  const cardData = {
+    name: values['card-name'],
+    link: values['img-url']
   };
-  newCardAdd.renderer(item);
-  checkValidNewCard.resetErrs();
+  const cardElement = createCard(cardData)
+  cardAdd.addItem(cardElement);
   handleAddCard.close();
 };
 

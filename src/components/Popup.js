@@ -1,4 +1,5 @@
-export const escButton = 'Escape'; //кнопка ESC
+import { escButton } from "../../utils/constants";
+
 export default class Popup {
   constructor (popupSelector) {
     this._selector = document.querySelector(popupSelector);
