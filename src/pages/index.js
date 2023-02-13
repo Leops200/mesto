@@ -1,3 +1,7 @@
+/*
+Здравствуйте Сергей! Спасибо большое Вам за Ваш труд. Особенно за пояснения к замечаниям, сразу понятно, почему лучше (или нужно) делать так, а не иначе. Проверьте меня, пожалуйста, ещё раз. Я, вроде, исправил все критические замечания, но, правда, не успел переделать некоторые из тех, где можно лучше. Главное, я понял суть, что сейчас мой код содержит неявную логику, которая может сбить с толку другого разработчика. Впредь буду учитывать такие моменты, спасибо.
+*/
+
 import './index.css';
 
 const ulanude = new URL('../images/ulan_ude.jpg', import.meta.url);
@@ -24,8 +28,7 @@ import{
   formAddCard,
   // - элемент для карточек
   cardsContainer,
-  // - кнопки
-  CLICK
+  
 } from '../../utils/constants.js';
 
 import Section from '../components/Section.js';
@@ -60,13 +63,13 @@ const cardAdd = new Section({
   },
 }, cardsContainer);
 
-const checkValidNewCard = new FormValidator (validationObj, formAddCard);
-checkValidNewCard.enableValidation();
+const newCardCheckValid = new FormValidator (validationObj, formAddCard);
+newCardCheckValid.enableValidation();
 const handleAddCard = new PopupWithForm('.popup_new-card', handleSubmitFormAddCard);
 handleAddCard.setEventListeners();
 
-const checkValidProfile = new FormValidator (validationObj, formProfileEdit);
-checkValidProfile.enableValidation();
+const profileCheckValid = new FormValidator (validationObj, formProfileEdit);
+profileCheckValid.enableValidation();
 const profileEdit = new PopupWithForm('.popup_profile', handleEditFormProfile);
 profileEdit.setEventListeners();
 const userInfo = new UserInfo({nameSelector: '.profile__user-name', activSelector: '.profile__user-activity'});
@@ -103,20 +106,20 @@ function handleEditFormProfile (e, values) {
 const openPopupProfile = () => {
   const {name, about} = userInfo.getUserInfo();
   profileEdit.setFormVal({name, about});
-  checkValidProfile.resetErrs();
+  profileCheckValid.resetErrs();
   profileEdit.open();
 };
 
 // Функция открытия попапа добавления карточки
 const openPopupAddNewCard = () =>{
-  checkValidNewCard.resetErrs();
+  newCardCheckValid.resetErrs();
   handleAddCard.open();
 };
 
 // Назначаем слушатель на кнопку редактора профиля
-popupProfileButtonOpen.addEventListener(CLICK, openPopupProfile);
+popupProfileButtonOpen.addEventListener('click', openPopupProfile);
 
 // Назначаем слушатель на кнопку добавления карточки
-popupCardButtonOpen.addEventListener(CLICK, openPopupAddNewCard);
+popupCardButtonOpen.addEventListener('click', openPopupAddNewCard);
 
 cardAdd.renderItems();

@@ -1,8 +1,8 @@
 .popup__form-btn-save{
-  /*border: 1px solid red;*/
+  /*outline: 2px solid red;*/
   width: 100%;
   height: 50px;
-  margin: 48px 0 0;
+  margin: 0;
   color: #fff;
   font-size: 18px;
   line-height: 22px;

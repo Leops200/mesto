@@ -71,5 +71,4 @@ export const initialCards = [
   errorClass: 'popup__form-inpt-err_on' //add to span
 };
 
-export const escButton = 'Escape'; //кнопка ESC
 export const CLICK = 'click'; //клик левой кнопки мыши 

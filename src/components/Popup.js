@@ -1,22 +1,20 @@
-import { escButton } from "../../utils/constants";
-
 export default class Popup {
   constructor (popupSelector) {
-    this._selector = document.querySelector(popupSelector);
+    this._popup = document.querySelector(popupSelector);
   }
 
   open(){
-    this._selector.classList.add('popup_opened');
+    this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
   };
 
   close(){
-    this._selector.classList.remove('popup_opened');
+    this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
   };
 
   setEventListeners () {
-    this._selector.addEventListener('click', (e) => {
+    this._popup.addEventListener('click', (e) => {
       if (e.target === e.currentTarget || e.target.classList.contains('popup__close-btn')){
         this.close();
       }
@@ -24,7 +22,7 @@ export default class Popup {
   };
 
   _handleEscClose = (e) => {
-      if (e.key === escButton) {
+      if (e.key === 'Escape') {
         this.close();
       }
   };

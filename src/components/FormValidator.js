@@ -26,7 +26,7 @@ export class FormValidator {
 
   // Устанавливаем состояние кнопки отправки
   _toggleButtonState() {
-    if(this._hasInvalidInput(this._inputList)){
+    if(this._hasInvalidInput()){
       this._btnSubmit.disabled = true;
       this._btnSubmit.classList.add(this._inactiveBtnClass);
       return;
@@ -67,6 +67,7 @@ export class FormValidator {
 
   // Перезагрузка валидации при каждом вводе
   resetErrs = () => {
+    this._toggleButtonState();
     this._inputList.forEach((input) => {
       if (input.classList.contains(this._inputErrorClass)) {
         this._hideError(input);
