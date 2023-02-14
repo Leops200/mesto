@@ -18,10 +18,12 @@ export class FormValidator {
         this._toggleButtonState();
       });
     });
-  this._form.addEventListener('reset', () => {
+    //слушатель ниже больше не нужен- перед
+    //открытием форм теперь всегда вызывается resetErrs
+  /*this._form.addEventListener('reset', () => {
     //console.log('reset'); // ресет пока не работает
     this._btnSubmit.disabled = true
-  });
+  });*/
   };
 
   // Устанавливаем состояние кнопки отправки
