@@ -14,6 +14,7 @@ export const popuProfileName = popuProfile.querySelector('.profile__user-name');
 export const popuProfileActivity = popuProfile.querySelector('.profile__user-activity');//* хобби в профиле
 export const popupProfileButtonOpen = popuProfile.querySelector('.profile__edit-btn');//* кнопка "включения" профиля
 export const popupCardButtonOpen = popuProfile.querySelector('.profile__add-btn');//* кнопка добавления нового профиля
+export const popupAvatarEditBtn = popuProfile.querySelector('.profile__avatar-btn');//* кнопка редактирования аватарки
 
 //--  Переменные для работы с формой профиля:
 export const formProfileEdit = document.querySelector('.popup__form-edit');//* окно редактирования профиля
@@ -29,6 +30,9 @@ export const formPlaceLinkInput = formAddCard.querySelector('.popup__form-input_
 export const zoomPopup = document.querySelector('.popup_zoom');//* весь контейнер зум
 export const imgPopupZoom = zoomPopup.querySelector('.popup__img');//* переменная для хранения изображения
 export const imgTitlePopupZoom = zoomPopup.querySelector('.popup__img-title');//* переменная для хранения названия изображения
+
+//--  Переменные для аватар-контейнера
+export const formAvatar = document.querySelector('.popup__form-avatar');
 
 //--  Переменные для Card и Template
 export const cardsContainer = '.elements';
