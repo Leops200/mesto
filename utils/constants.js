@@ -8,6 +8,7 @@ export const popups = document.querySelectorAll('.popup');//* здесь наз�
 export const popuProfileEdit = document.querySelector('.popup_profile');//* эта переменная добавляет класс открытия попапу профиля при клике
 export const popupNewCardAdd = document.querySelector('.popup_new-card');//* эта переменная добавляет класс открытия попапу новой карточки при клике
 
+
 //--  Переменные для  профиля
 export const popuProfile = document.querySelector('.profile');//* назначаем конкретный блок - профиль 
 export const popuProfileName = popuProfile.querySelector('.profile__user-name');//* имя в профиле
@@ -25,6 +26,10 @@ export const formAboutInput = formProfileEdit.querySelector('.popup__form-input_
 export const formAddCard = document.querySelector('.popup__form-new-card');
 export const formPlaceNameInput = formAddCard.querySelector('.popup__form-input_place-name');
 export const formPlaceLinkInput = formAddCard.querySelector('.popup__form-input_link');
+
+//-- Переменные для работы с формой аватарки
+export const formEditAvatar = document.querySelector('.popup__form-avatar');
+export const formAvatarLinkInput = formEditAvatar.querySelector('.popup__form-input_avatar');
 
 //--  Переменные для зум-контейнера
 export const zoomPopup = document.querySelector('.popup_zoom');//* весь контейнер зум

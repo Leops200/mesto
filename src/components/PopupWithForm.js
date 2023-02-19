@@ -1,12 +1,14 @@
 import Popup from "./Popup.js";
 
 export class PopupWithForm extends Popup{
-  constructor(popupSelector, handleFormSubmit){
+  constructor({handleFormSubmit}, popupSelector){
     super(popupSelector);
 
     this._handleSubmit = handleFormSubmit;
     this._form = this._popup.querySelector('.popup__form');
     this._inputs = this._form.querySelectorAll('.popup__form-input');
+    this._btnSave = this._form.querySelector('.popup__form-btn-save')
+    this._btnSaveText = this._btnSave.textContent;
   };
 
   // записываем значения полей формы
@@ -23,21 +25,19 @@ export class PopupWithForm extends Popup{
     return values;
   };
 
-// обработка на крестик и сабмит формы
+// обработка сабмитa формы
   setEventListeners(){
     super.setEventListeners();
       this._form.addEventListener('submit', (e) =>{
-      this._handleSubmit(e, this._getInputValues());
-    });
-  };
-
-  setFormVal(values){
-    this._inputs.forEach(input => {
-      const name = input.name;
-      if(values[name]){
-        input.value = values[name]
-      };
-    });
+        e.preventDefault();
+        console.log('SUBMIT!!')
+        const textInit = this._btnSave.textContent;
+        this._btnSave.textContent = 'Сохранение...';
+        this._handleSubmit(this._getInputValues())
+          .then(() => this.close())
+          .catch((err) => {console.log(err)})
+          .finally(() => {this._btnSave.textContent = textInit;})
+      });
   };
 
   close() {
@@ -46,3 +46,12 @@ export class PopupWithForm extends Popup{
     this._form.reset();
   };
 };
+
+  /*setFormVal(values){
+    this._inputs.forEach(input => {
+      const name = input.name;
+      if(values[name]){
+        input.value = values[name]
+      };
+    });
+  };*/

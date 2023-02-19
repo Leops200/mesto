@@ -35,7 +35,7 @@
             <p class="footer__copyright">&#xA9; 2022 Mesto Russia</p>
         </footer>
         <!-- попАп -->
-        <div class="popup popup_profile">
+        <div class="popup popup_profile" id="popup__profile">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <button class="button popup__close-btn popup__close-btn_profile" type="button"></button>
@@ -74,7 +74,7 @@
                 </form>
             </div>
         </div>
-        <div class="popup popup_new-card">
+        <section class="popup popup_new-card" id="new__card">
             <div class="popup__container">
                 <h2 class="popup__title popup__title-new-card">Новое место</h2>
                 <button class="button popup__close-btn popup__close-btn_card" type="button"></button>
@@ -92,7 +92,7 @@
                         placeholder="Название"
                         minlength="2"
                         maxlength="30"
-                        name="card-name"
+                        name="name"
                         required
                     >
                     <span class="popup__form-inpt-err place-name-error"></span>
@@ -101,7 +101,7 @@
                         type="url"
                         form="new-card"
                         placeholder="Ваша ссылка"
-                        name="img-url"
+                        name="link"
                         id="url-inpt"
                         required
                     >
@@ -109,7 +109,7 @@
                     <button class="button popup__form-btn-save popup__form-btn-save_dsbl" type="submit" form="new-card">Создать</button>
                 </form>
             </div>
-        </div>
+        </section>
         <div class="popup popup_zoom">
             <div class="popup__container-zoom">
                 <button class="button popup__close-btn popup__close-btn_zoom" type="button"></button>
@@ -119,7 +119,31 @@
                 </div>
             </div>
         </div>
-        <div class="popup popup_avatar">
+        <div class="popup popup_avatar" id="popup__avatar">
+            <div class="popup__container">
+                <h2 class="popup__title">Обновить аватар</h2>
+                <button class="button popup__close-btn popup__close-btn_profile" type="button"></button>
+                <form
+                    class="popup__form popup__form-avatar forms"
+                    novalidate
+                    id="popup__form-avatar"
+                    name="avatar"
+                >
+                    <input
+                        class="popup__form-input popup__form-input_link"
+                        type="url"
+                        placeholder="Ссылка на картинку"
+                        avatar="#"
+                        id="about-input"
+                        required
+                        minlength="2"
+                        maxlength="200"
+                    >
+                    <span class="popup__form-inpt-err about-input-error"></span>
+                    <button class="button popup__form-btn-save" type="submit" form="profile-edit">Сохранить</button>
+                </form>
+            </div>
+        <!--<div class="popup popup_avatar" id="popup__avatar">
             <div class="popup__container">
                 <button class="button popup__close-btn popup__close-btn_avatar"></button>
                 <h2 class="popup__title">Обновить аватар</h2>
@@ -142,7 +166,7 @@
                 <button class="button popup__form-btn-save popup__form-btn-save_dsbl" type="submit" form="avatar">Сохранить</button>
                 </form> 
             </div>
-        </div>
+        </div>-->
         <div class="popup popup_accept">
             <div class="popup__container">
                 <button class="button popup__close-btn popup__close-btn_accept"></button>
@@ -159,13 +183,14 @@
         <template id="card-template">
             <li class="card">
                 <button class="button card__del-btn" type="button"></button>
-                <img src="#" alt="#" class="card__image">
+                <img src="" alt="" class="card__image">
                 <div class="card__about">
                     <h2 class="card__title"></h2>
                     <button class="button card__like-btn" type="button"></button>
+                    <span class="card__like-count"></span>
                 </div>
             </li>
         </template>
-        <script src="./src/pages/index.js" type="module"></script>
+        <!--<script src="./src/pages/index.js" type="module"></script>-->
     </body>
 </html>
