@@ -21,9 +21,9 @@ export class Card {
     this._cardLikeBtn.addEventListener('click', () => {
       this._handleLikeClick();
     });
-    this._trashBtn.addEventListener('click', () => {
+    /*this._trashBtn.addEventListener('click', () => {
       this._handleDelClick();
-    });
+    });*/
   }
   //* Функция получения шаблона
   _getTemplate() {

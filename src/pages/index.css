@@ -53,7 +53,7 @@
 @import url(../blocks/popup/_new-card/popup_new-card.css);
 @import url(../blocks/popup/_profile/popup_profile.css);
 @import url(../blocks/popup/__form-input/popup__form-input.css);
-
+@import url(../blocks/card/__like-count/card__like-count.css);
 @import url(../blocks/popup/__container-zoom/popup__container-zoom.css);
 @import url(../blocks/popup/__form-input/_other-about/popup__form-input_other-about.css);
 @import url(../blocks/popup/__form-input/_other-name/popup__form-input_other-name.css);

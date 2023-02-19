@@ -1,0 +1,5 @@
+.card__like-count{
+  border: 1px solid red;
+  height: 5px;
+  width: 5px;
+}
