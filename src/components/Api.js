@@ -41,8 +41,6 @@ _refund(url, options) {
   };
 
   addInfo(data) {
-    console.log('avatar data:');
-    console.log(data);
     return this._refund(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -55,8 +53,6 @@ _refund(url, options) {
   
   //добавляем карточку
   addNewCard(data) {
-    console.log('data');
-    console.log(data);
     return this._refund(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -68,7 +64,6 @@ _refund(url, options) {
   };
 
   deleteCard(id) {
-    console.log('delete in Api!!')
     return this._refund(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers

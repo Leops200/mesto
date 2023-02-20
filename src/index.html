@@ -130,10 +130,10 @@
                     name="avatar"
                 >
                     <input
-                        class="popup__form-input popup__form-input_link"
+                        class="popup__form-input"
                         type="url"
                         placeholder="Ссылка на картинку"
-                        avatar="#"
+                        name="avatar"
                         id="avatar"
                         required
                         minlength="2"
@@ -163,8 +163,10 @@
                 <img src="#" alt="#" class="card__image">
                 <div class="card__about">
                     <h2 class="card__title"></h2>
-                    <button class="button card__like-btn" type="button"></button>
-                    <span class="card__like-count"></span>
+                    <div class="card__like">
+                        <button class="button card__like-btn" type="button"></button>
+                        <span class="card__like-count"></span>
+                    </div>
                 </div>
             </li>
         </template>

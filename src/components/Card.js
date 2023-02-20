@@ -41,7 +41,7 @@ export class Card {
     this._cardLikeBtn = this._element.querySelector('.card__like-btn');
     this._trashBtn = this._element.querySelector('.card__del-btn');
     this._nameAdd = this._element.querySelector('.card__title');
-    this._likeCount = this._element.querySelector('.card__like-count');
+    this._cardLikeCount = this._element.querySelector('.card__like-count');
 
     this._nameAdd.textContent = this._name;
     this._imageAdd.src = this._link;
@@ -86,15 +86,17 @@ export class Card {
   //функция переключателя кнопки лайков
   toggleLikes(){
     if (this.checkLikes()) {
-      this._cardLikeButton.classList.add("elements__button-like_active");
+      this._cardLikeBtn.classList.add("card__like-btn_on");
     } else {
-      this._cardLikeButton.classList.remove("elements__button-like_active");
+      this._cardLikeBtn.classList.remove("card__like-btn_on");
     }
   };
 
   // установки кнопки и счётчика лайка
-  setLikes(initialCards) {
-    this._likes = initialCards.likes;
+  setLikes(data) {
+    console.log('data.likes: ');
+    console.log(data.likes);
+    this._likes = data.likes;
     this._cardLikeCount.textContent = this._likes.length;
     this._handleLikeBtn();
   };

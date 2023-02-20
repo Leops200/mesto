@@ -2,7 +2,7 @@
   /*border: 1px solid greenyellow;*/
   width: 100%;
   max-width: 430px;
-  height: 330px;
+  max-height: 330px;
   background-color: #fff;
   border-radius: 10px;
   position: relative;
@@ -10,7 +10,7 @@
 
 @media  screen and (max-width: 525px){
   .popup__container{
-    height: 322px;
+    max-height: 322px;
     margin: 0 19px;
   }
 }

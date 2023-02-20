@@ -68,7 +68,6 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
-console.log(api);
 
 //собираем карточку
 const createCard = (item) => {
@@ -79,6 +78,8 @@ const createCard = (item) => {
     handleLikeClick: () => {//обработка клика лайка
       const id = card.getCardId();
       const isLiked = card.checkLikes();
+      console.log('isLiked');
+      console.log(isLiked);
       const resApi = isLiked ? api.deleteCardLike(id) : api.addCardLike(id);
       resApi
       .then((initialCards) => {
@@ -88,7 +89,6 @@ const createCard = (item) => {
       .catch((err) => {console.log('Err: ' + err);});
     },
     handleDelClick: () => {//обработка клика по ведру
-      console.log('ведро!!');
       popupWithAccept.open(card);
     }
   } );
@@ -99,8 +99,9 @@ const handleDelCard = async (card) => {
   const id = card.getCardId();
   try{await api.deleteCard(id);
       popupWithAccept.close();
+      console.log('Ведро!')
       card.deleteCard();
-    } catch(err){console.log('Str95 err' + err);}
+    } catch(err){console.log(err);}
 };
 
 // Попап подтверждения удаления карточки
@@ -134,7 +135,6 @@ newCardCheckValid.enableValidation();
 const handleAddCard = new PopupWithForm({
   handleFormSubmit: async (card) => {
     try{const data = await api.addNewCard(card);
-      console.log("card");
       cardAdd.addItem(createCard(data));
     }catch(err) {console.log('Ошибка: ' + err);}
   },
