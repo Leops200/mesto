@@ -1,11 +1,12 @@
 export class Card {
-  constructor(data, userId, templateSelector, {handleImageClick, handleLikeClick, handleDelClick}) {
-    this._name = data.name;
-    this._link = data.link;
-    this._likes = data.likes;
+  constructor(item, userId, templateSelector, {handleImageClick, handleLikeClick, handleDelClick}) {
+    this.initialCards = item;
+    this._name = this.initialCards.name;
+    this._link = this.initialCards.link;
+    this._likes = item.likes;
     this._userId = userId;
-    this._ownerId = data.owner._id;
-    this._cardId = data._id;
+    this._ownerId = this.initialCards.owner._id;
+    this._cardId = this.initialCards._id;
 
     this._templateSelector = templateSelector;
     this._handleImageClick = handleImageClick;
@@ -52,8 +53,8 @@ export class Card {
     if (this._ownerId !== this._userId){
       this._trashBtn.remove();
     };
-    //this._countLikes();
     this._setEventListeners();
+    this._countLikes();
 
     return this._element;
   };
@@ -74,31 +75,31 @@ export class Card {
     }
   }
 
-  countLikes() {
-    this._cardLikeCount.textContent = this._likes.lenght;
-    this.toggleLikes();
+  _countLikes() {
+    this._cardLikeCount.textContent = this._likes.length;
+    this._toggleLikes();
   };
+
+    // установки кнопки и счётчика лайка
+    setLikes(initialCards) {
+      this._likes = initialCards.likes;
+      console.log(this._likes.length);
+      this._cardLikeCount.textContent = this._likes.length;
+      this._handleLikeBtn();
+    };
+
   // проверка идентификатора лайка
   checkLikes(){
     return this._likes.some((like) => like._id === this._userId);
   };
 
   //функция переключателя кнопки лайков
-  toggleLikes(){
+  _toggleLikes(){
     if (this.checkLikes()) {
       this._cardLikeBtn.classList.add("card__like-btn_on");
     } else {
       this._cardLikeBtn.classList.remove("card__like-btn_on");
     }
-  };
-
-  // установки кнопки и счётчика лайка
-  setLikes(data) {
-    console.log('data.likes: ');
-    console.log(data.likes);
-    this._likes = data.likes;
-    this._cardLikeCount.textContent = this._likes.length;
-    this._handleLikeBtn();
   };
 
   //* Функция переключателя лайка
