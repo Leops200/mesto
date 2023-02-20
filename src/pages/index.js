@@ -60,7 +60,7 @@ const userInfo = new UserInfo({
   activSelector: '.profile__user-activity',
   avatarSelector: ".profile__avatar"
 });
-
+//пароль и логин для сайта
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-59",
   headers: {
@@ -70,6 +70,7 @@ const api = new Api({
 });
 console.log(api);
 
+//собираем карточку
 const createCard = (item) => {
   const card = new Card(item, userInfo.getUserId(),'#card-template', {
     handleImageClick: (name, link) => {
@@ -102,9 +103,11 @@ const handleDelCard = async (card) => {
     } catch(err){console.log('Str95 err' + err);}
 };
 
+// Попап подтверждения удаления карточки
 const popupWithAccept = new PopupWithAccept('.popup_accept', handleDelCard);
 popupWithAccept.setEventListeners();
 
+// Функция сбора данных с сервера
 Promise.all([api.getUserInfo(), api.getInitCards()])
   .then(([data, initialCards]) => {
     userInfo.setUserInfo(data);
@@ -123,7 +126,7 @@ Promise.all([api.getUserInfo(), api.getInitCards()])
     },
   }, cardsContainer);
   
-
+//Валидируем форму добавления карточек
 const newCardCheckValid = new FormValidator (validationObj, formAddCard);
 newCardCheckValid.enableValidation();
 
@@ -139,6 +142,7 @@ const handleAddCard = new PopupWithForm({
   '.popup_new-card'/*, handleSubmitFormAddCard*/);
 handleAddCard.setEventListeners();
 
+//Валидируем форму редактора профиля
 const profileCheckValid = new FormValidator (validationObj, formProfileEdit);
 profileCheckValid.enableValidation();
 
@@ -152,7 +156,7 @@ const profileEdit = new PopupWithForm({
   '.popup_profile');
 profileEdit.setEventListeners();
 
-// Валидация аватарки 
+// Валидируем форму аватарки 
 const avatarCheckValid = new FormValidator (validationObj, formEditAvatar);
 avatarCheckValid.enableValidation();
 

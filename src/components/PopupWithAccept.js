@@ -1,12 +1,12 @@
 import Popup from "./Popup";
 
 export class PopupWithAccept extends Popup {
-  constructor(popupSelector, cardDelHandler) {
+  constructor(popupSelector, handleDelCard) {
     super(popupSelector);
-    this._cardDelHandler = cardDelHandler;
+    this._cardDelHandler = handleDelCard;
     this._form = this._popup.querySelector('.popup__form');
-    this.button = this._form.querySelector('.popup__form-btn-save');
-    this._buttonText = this.button.textContent;
+    this._delBtn = this._form.querySelector('.popup__form-btn-save');
+    this._buttonText = this._delBtn.textContent;
   };
 
   open(cardItem) {
@@ -17,12 +17,12 @@ export class PopupWithAccept extends Popup {
   setEventListeners() {
     this._form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const initText = this._button.textContent;
-      this._button.textContent = 'Удаление...';
-      this._cardDeleteHandler(this._card)
+      const initText = this._delBtn.textContent;
+      this._delBtn.textContent = 'Удаление...';
+      this._cardDelHandler(this._card)
         .then(() => this.close())
         .catch((err) => {console.log('Ошибка ' + err)})
-        .finally(() => {this._button.textContent = initText;})
+        .finally(() => {this._delBtn.textContent = initText;})
     });
     super.setEventListeners();
   };

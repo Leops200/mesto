@@ -68,6 +68,7 @@ _refund(url, options) {
   };
 
   deleteCard(id) {
+    console.log('delete in Api!!')
     return this._refund(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers

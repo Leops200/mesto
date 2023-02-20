@@ -10,6 +10,8 @@ export class PopupWithForm extends Popup{
     this._btnSave = this._form.querySelector('.popup__form-btn-save')
     this._btnSaveText = this._btnSave.textContent;
   };
+  
+  vKonsole(){console.log(this._btnSaveText)};
 
   // записываем значения полей формы
   _getInputValues(){
@@ -30,13 +32,15 @@ export class PopupWithForm extends Popup{
     super.setEventListeners();
       this._form.addEventListener('submit', (e) =>{
         e.preventDefault();
-        console.log('SUBMIT!!')
-        const textInit = this._btnSave.textContent;
+        console.log('SUBMIT!!');
+        const initText = this._btnSave.textContent;
         this._btnSave.textContent = 'Сохранение...';
+        console.log('_getInputValues:')
+        console.log(this._getInputValues);
         this._handleSubmit(this._getInputValues())
           .then(() => this.close())
           .catch((err) => {console.log(err)})
-          .finally(() => {this._btnSave.textContent = textInit;})
+          .finally(() => {this._btnSave.textContent = initText;})
       });
   };
 
