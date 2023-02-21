@@ -29,7 +29,7 @@ export const formPlaceLinkInput = formAddCard.querySelector('.popup__form-input_
 
 //-- Переменные для работы с формой аватарки
 export const formEditAvatar = document.querySelector('.popup__form-avatar');
-export const formAvatarLinkInput = formEditAvatar.querySelector('.popup__form-input_avatar');
+export const formAvatarLinkInput = formEditAvatar.querySelector('.popup__form-input');
 
 //--  Переменные для зум-контейнера
 export const zoomPopup = document.querySelector('.popup_zoom');//* весь контейнер зум

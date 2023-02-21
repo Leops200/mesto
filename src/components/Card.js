@@ -48,13 +48,13 @@ export class Card {
     this._imageAdd.src = this._link;
     this._imageAdd.alt = 'картинка ' + this._name;
 
-    this._setEventListeners();
+    //this._setEventListeners();
 
     if (this._ownerId !== this._userId){
       this._trashBtn.remove();
     };
     this._setEventListeners();
-    this._countLikes();
+    this.countLikes();
 
     return this._element;
   };
@@ -75,7 +75,7 @@ export class Card {
     }
   }
 
-  _countLikes() {
+  countLikes() {
     this._cardLikeCount.textContent = this._likes.length;
     this._toggleLikes();
   };

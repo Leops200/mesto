@@ -1,9 +1,18 @@
-/*
-Здравствуте, Михаил! Сразу хочу поблагодарить Вас за Ваш труд, он очень важен для такого новичка, как я. Ваши коментарии помогают лучше понять что и как лучше и правильнее делать, и многого из того, что вы пишете, в теории просто нет... Спасибо!! 
+/*Решил отправить работу на проверку ещё раз. Здесь я пока не смог победить функционал смены аватарки, но, думаю, тут и без того будет много недочётоа, которые нужно будет править(Итерации есть, а вот сроки уже вышли). Ещё раз спасибо Вам за проверку. 
+------------------------------------------------------------------
 
-Решил отправить работу на проверку ещё раз. Здесь я пока не смог победить функционал смены аватарки, но, думаю, тут и без того будет много недочётоа, которые нужно будет править(Итерации есть, а вот сроки уже вышли). Ещё раз спасибо Вам за проверку. 
+Здравствуте, Михаил! Спасибо Вам большое за ревью, и за большое количество зелёненьких полей, это, действительно, вселяет уверенность в своих силах. Но вот досадные ошибки выбивают из колеи...
+
+Я, видимо, неправильно выразился выше, функционал я сделал, проверил, как меняется аватарка, но затык у меня происходит на 38 строке в файле PopupWithForm. Не могу понять почему в функцию _handleFormSubmit прилетают пустые поля из попапа.Если физически кликнуть на аватарку, ввести адрес картинки, и нажать сохранить - на этом этапе в консоль падает ошибка из асинхронной функции (строка 163 этого файла), и форма остаётся открытой, соответственно в api отсюда ничего не приходит, и аватарка не меняется. В группу вопрос задал, но все молчат. А сам тредий день уже не вижу где, чего я упускаю...
+
+Вот, только что увидел, что эта ошибка вообще из другой асинхронной функции - из функции редактора профиля, а не из редактора аватара почему-то..
+
+Пока писал этот комментарий - разобрался....))) Спасибо Вам!
+
+Ваши замечания , конечно же , поправил, хотя, вижу есть ещё над чем можно поработать)) 
 */
 
+//https://i.imgur.com/XWOuu8G.gifhttps://i.imgur.com/XWOuu8G.gif
 import './index.css';
 /*
 const ulanude = new URL('../images/ulan_ude.jpg', import.meta.url);
@@ -25,12 +34,14 @@ const initialCards = [
 //*-- Импорты:
 import{
   // - элементы ДОМ
+  
   popupProfileButtonOpen,
   popupCardButtonOpen,
   formProfileEdit,
   formEditAvatar,
   formAddCard,
   formNameInput,
+  formAvatarLinkInput,
   formAboutInput,
   popupAvatarEditBtn,
   // - элемент для карточек
@@ -77,11 +88,12 @@ const createCard = (item) => {
     handleLikeClick: () => {//обработка клика лайка
       const id = card.getCardId();
       const isLiked = card.checkLikes();
+      console.log(isLiked);
       const resApi = isLiked ? api.deleteCardLike(id) : api.addCardLike(id);
       resApi
       .then((initialCards) => {
         card.setLikes(initialCards);
-        card._countLikes();
+        card.countLikes();
       })
       .catch((err) => {console.log('Err: ' + err);});
     },
@@ -144,7 +156,9 @@ profileCheckValid.enableValidation();
 
 const profileEdit = new PopupWithForm({
   handleFormSubmit: async (data) => {
-    try{const dataNew = await api.addInfo(data);
+    try{console.log('data');
+      console.log(data);
+      const dataNew = await api.addInfo(data);
       userInfo.setUserInfo(dataNew);
     }catch(err) {console.log(err);}
   },
@@ -160,13 +174,13 @@ const newPopupWithImage = new PopupWithImage('.popup_zoom');
 newPopupWithImage.setEventListeners();
 
 // Форма смены автарки
-const avatarPopup = new PopupWithForm({
-  handleFormSubmit: async (avatar) =>{
+const avatarPopup = new PopupWithForm ({
+  handleFormSubmit: async (avatar) => {
     try {const data = await api.addAvatar(avatar)
         userInfo.setUserInfo(data)
       } catch (err) {console.log(err);}
   },
-}, '#popup__avatar');
+}, '.popup_avatar');
 avatarPopup.setEventListeners();
 
 //*-- Функция открытия попапа с картинкой

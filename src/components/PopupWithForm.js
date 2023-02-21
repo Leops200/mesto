@@ -47,13 +47,17 @@ export class PopupWithForm extends Popup{
 
     this._form.reset();
   };
-};
 
-  /*setFormVal(values){
+  setInputValues(values){
     this._inputs.forEach(input => {
       const name = input.name;
       if(values[name]){
         input.value = values[name]
+        
       };
     });
-  };*/
+    console.log(input.value);
+  };
+
+};
+
