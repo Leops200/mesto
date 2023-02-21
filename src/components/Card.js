@@ -3,7 +3,7 @@ export class Card {
     this.initialCards = item;
     this._name = this.initialCards.name;
     this._link = this.initialCards.link;
-    this._likes = item.likes;
+    this._likes = this.initialCards.likes;
     this._userId = userId;
     this._ownerId = this.initialCards.owner._id;
     this._cardId = this.initialCards._id;
@@ -83,7 +83,6 @@ export class Card {
     // установки кнопки и счётчика лайка
     setLikes(initialCards) {
       this._likes = initialCards.likes;
-      console.log(this._likes.length);
       this._cardLikeCount.textContent = this._likes.length;
       this._handleLikeBtn();
     };

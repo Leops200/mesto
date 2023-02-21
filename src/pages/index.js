@@ -1,5 +1,7 @@
 /*
 Здравствуте, Михаил! Сразу хочу поблагодарить Вас за Ваш труд, он очень важен для такого новичка, как я. Ваши коментарии помогают лучше понять что и как лучше и правильнее делать, и многого из того, что вы пишете, в теории просто нет... Спасибо!! 
+
+Решил отправить работу на проверку ещё раз. Здесь я пока не смог победить функционал смены аватарки, но, думаю, тут и без того будет много недочётоа, которые нужно будет править(Итерации есть, а вот сроки уже вышли). Ещё раз спасибо Вам за проверку. 
 */
 
 import './index.css';
@@ -75,8 +77,6 @@ const createCard = (item) => {
     handleLikeClick: () => {//обработка клика лайка
       const id = card.getCardId();
       const isLiked = card.checkLikes();
-      console.log('isLiked');
-      console.log(isLiked);
       const resApi = isLiked ? api.deleteCardLike(id) : api.addCardLike(id);
       resApi
       .then((initialCards) => {
@@ -96,7 +96,6 @@ const handleDelCard = async (card) => {
   const id = card.getCardId();
   try{await api.deleteCard(id);
       popupWithAccept.close();
-      console.log('Ведро!')
       card.deleteCard();
     } catch(err){console.log(err);}
 };
@@ -147,7 +146,7 @@ const profileEdit = new PopupWithForm({
   handleFormSubmit: async (data) => {
     try{const dataNew = await api.addInfo(data);
       userInfo.setUserInfo(dataNew);
-    }catch(err) {console.log('Ошибка: ' + err);}
+    }catch(err) {console.log(err);}
   },
 },
   '.popup_profile');
@@ -167,7 +166,7 @@ const avatarPopup = new PopupWithForm({
         userInfo.setUserInfo(data)
       } catch (err) {console.log(err);}
   },
-}, '.popup_avatar');
+}, '#popup__avatar');
 avatarPopup.setEventListeners();
 
 //*-- Функция открытия попапа с картинкой
@@ -175,7 +174,7 @@ export const handleImageClick = (nameAdd, imageAdd) => {
   newPopupWithImage.open(nameAdd, imageAdd);
 };
 
-//*  функция сохранения (отправки) введённых данных новая карточка
+/*  функция сохранения (отправки) введённых данных новая карточка
 function handleSubmitFormAddCard(e, values) {
   e.preventDefault();
   const cardData = {
@@ -185,7 +184,7 @@ function handleSubmitFormAddCard(e, values) {
   const cardElement = createCard(cardData)
   cardAdd.addItem(cardElement);
   handleAddCard.close();
-};
+};*/
 
 /*  Функция сохранения (отправки) введённых данных профиля
 function handleEditFormProfile (e, values) {

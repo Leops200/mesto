@@ -40,7 +40,7 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <button class="button popup__close-btn popup__close-btn_profile" type="button"></button>
                 <form
-                    class="popup__form popup__form-edit forms"
+                    class="popup__form popup__form-edit"
                     novalidate
                     id="profile-edit"
                     name="profile-edit"
@@ -122,18 +122,20 @@
         <div class="popup popup_avatar" id="popup__avatar">
             <div class="popup__container">
                 <h2 class="popup__title">Обновить аватар</h2>
-                <button class="button popup__close-btn popup__close-btn_profile" type="button"></button>
+                <button class="button popup__close-btn popup__close-btn_avatar" type="button"></button>
                 <form
-                    class="popup__form popup__form-avatar forms"
+                    class="popup__form popup__form-avatar"
                     novalidate
-                    id="form-avatar"
+                    id="url-inpt"
                     name="avatar"
                 >
                     <input
-                        class="popup__form-input"
+                        class="popup__form-input 
+                        popup__form-input_avatar"
                         type="url"
                         placeholder="Ссылка на картинку"
-                        name="avatar"
+                        form="popup__form-avatar"
+                        name="about"
                         id="avatar"
                         required
                         minlength="2"

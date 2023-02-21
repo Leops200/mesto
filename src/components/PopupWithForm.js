@@ -4,7 +4,7 @@ export class PopupWithForm extends Popup{
   constructor({handleFormSubmit}, popupSelector){
     super(popupSelector);
 
-    this._handleSubmit = handleFormSubmit;
+    this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector('.popup__form');
     this._inputs = this._form.querySelectorAll('.popup__form-input');
     this._btnSave = this._form.querySelector('.popup__form-btn-save')
@@ -16,13 +16,13 @@ export class PopupWithForm extends Popup{
   // записываем значения полей формы
   _getInputValues(){
     // создали объект
-    const values = {};
+    const values = {}
     //перебрали и сохранили в него значения полей
     this._inputs.forEach(element => {
       const name = element.name;
       const value = element.value;
-
       values[name] = value;
+      console.log(values)
     });
     return values;
   };
@@ -35,9 +35,7 @@ export class PopupWithForm extends Popup{
         console.log('SUBMIT!!');
         const initText = this._btnSave.textContent;
         this._btnSave.textContent = 'Сохранение...';
-        console.log('_getInputValues:')
-        console.log(this._getInputValues);
-        this._handleSubmit(this._getInputValues())
+        this._handleFormSubmit(this._getInputValues())
           .then(() => this.close())
           .catch((err) => {console.log(err)})
           .finally(() => {this._btnSave.textContent = initText;})
