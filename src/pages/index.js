@@ -29,7 +29,6 @@ import{
   formEditAvatar,
   formAddCard,
   formNameInput,
-  formAvatarLinkInput,
   formAboutInput,
   popupAvatarEditBtn,
   // - элемент для карточек
